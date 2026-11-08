@@ -1,0 +1,2381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' data-theme='light' id='solitude-html' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/namespaces/b/2012' xmlns:data='http://www.google.com/namespaces/atom' xmlns:expr='http://www.google.com/namespaces/expr/2012'>
+<head>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  <title><data:blog.pageTitle/></title>
+  <b:include data='blog' name='all-head-content'/>
+  <meta content='#425AEF' name='theme-color'/>
+  <b:skin><![CDATA[
+/* =============================================================
+   Solitude for Blogger  |  Visual port of hexo-theme-solitude
+   Design origins: @everfu / @zhheo  (Apache-2.0)
+   Blogger port: CSS variables kept close to the original Stylus.
+   ============================================================= */
+
+/* ---------- Theme tokens (light) ---------- */
+:root,
+[data-theme='light'] {
+  --efu-theme: #425aef;
+  --efu-theme-op: #425aef23;
+  --efu-theme-op-deep: #425aefd0;
+  --efu-theme-op-light: #4259ef0d;
+  --efu-main: var(--efu-theme);
+  --efu-main-op: var(--efu-theme-op);
+  --efu-background: #f7f9fe;
+  --efu-card-bg: #fff;
+  --efu-card-border: #e3e8f7;
+  --efu-secondbg: #f7f7f9;
+  --efu-fontcolor: #363636;
+  --efu-secondtext: rgba(60, 60, 67, .8);
+  --efu-lighttext: var(--efu-main);
+  --efu-gray: #999;
+  --efu-white: #fff;
+  --efu-navbg: #ffffffcc;
+  --efu-nav-hover-text: #fff;
+  --efu-shadow-border: 0 8px 16px -4px #2c2d300c;
+  --efu-shadow-main: 0 8px 12px -3px var(--efu-main-op);
+  --efu-shadow-nav: 0 5px 12px -5px rgba(102, 68, 68, .05);
+  --efu-shadow-black: 0 0 12px 4px rgba(0, 0, 0, .05);
+  --style-border: 1px solid var(--efu-card-border);
+  --style-border-hover: 1px solid var(--efu-main);
+  --efu-hl-bg: #f7f7f9;
+  --efu-hltools-bg: #eceef5;
+  --radius: 12px;
+  --gap: .5rem;
+}
+
+/* ---------- Theme tokens (dark) ---------- */
+[data-theme='dark'] {
+  --efu-theme: #ffc848;
+  --efu-theme-op: #ffc84823;
+  --efu-theme-op-deep: #ffc848dd;
+  --efu-theme-op-light: #ffc8480d;
+  --efu-main: var(--efu-theme);
+  --efu-main-op: var(--efu-theme-op);
+  --efu-background: #18171d;
+  --efu-card-bg: #1b1c20;
+  --efu-card-border: #3d3d3f;
+  --efu-secondbg: #30343f;
+  --efu-fontcolor: #f7f7fa;
+  --efu-secondtext: #a1a2b8;
+  --efu-lighttext: var(--efu-theme);
+  --efu-gray: #8b8b9a;
+  --efu-white: #fff;
+  --efu-navbg: #1b1c20d9;
+  --efu-nav-hover-text: #1b1c20;
+  --efu-shadow-border: 0 8px 16px -4px #00000050;
+  --efu-shadow-main: 0 8px 12px -3px var(--efu-main-op);
+  --efu-shadow-nav: 0 5px 20px 0 rgba(28, 28, 28, .4);
+  --efu-shadow-black: 0 0 12px 4px rgba(0, 0, 0, .2);
+  --style-border: 1px solid var(--efu-card-border);
+  --style-border-hover: 1px solid var(--efu-theme);
+  --efu-hl-bg: #21232a;
+  --efu-hltools-bg: #30343f;
+}
+
+/* ---------- Reset / base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--efu-background);
+  color: var(--efu-fontcolor);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 2;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .3s ease, color .3s ease;
+}
+/* 国内网络优化：Blogger 的主题设计师功能可能注入 Google Fonts
+   （fonts.googleapis.com / fonts.gstatic.com），加载失败会造成文字长时间空白。
+   强制回落到系统字体栈。模板本身不引用任何外部字体、CSS、JS 或图标 CDN。 */
+html, body, .widget, .post-body, .article-container, #comments, .comments,
+.card-widget, .dialog-panel, button, input {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+a { color: var(--efu-fontcolor); text-decoration: none; transition: color .25s ease; }
+a:hover { color: var(--efu-main); }
+img { max-width: 100%; height: auto; }
+button, input { font-family: inherit; font-size: inherit; }
+button { cursor: pointer; }
+h1, h2, h3, h4 { line-height: 1.35; font-weight: 700; margin: 0 0 .6em; }
+p { margin: 0 0 1.1em; }
+::selection { background: var(--efu-main); color: var(--efu-white); }
+*::-webkit-scrollbar { width: 10px; height: 6px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--efu-card-border); border-radius: 8px;
+  border: 2px solid var(--efu-background);
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--efu-main); }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Blogger's mandatory widgets are rendered visually neutral here. */
+#navbar, #Navbar1, #Header1, #header, .navbar, .widget-item-control, .blogger-click-trap,
+#blog-pager-newer-link, #blog-pager-older-link { display: none !important; }
+.widget { margin: 0; }
+#Attribution1 { display: block; }
+.separator a[href*='blogger'], a[href*='blogger.com'][target='_blank'] { border: 0; }
+
+/* ---------- Global container ---------- */
+#body-wrap { min-height: 100vh; display: flex; flex-direction: column; padding-top: 64px; }
+.wrap {
+  width: min(1400px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* ---------- Top navigation (Solitude #nav) ---------- */
+#page-header { position: relative; z-index: 30; }
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  height: 64px;
+  display: flex; align-items: center;
+  padding: 0 max(20px, calc((100vw - 1400px) / 2));
+  background: transparent;
+  transition: background .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+#nav.scrolled {
+  background: var(--efu-navbg);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: var(--efu-shadow-nav);
+}
+#nav.nav-hidden { transform: translateY(-100%); }
+#nav-group { width: 100%; display: flex; align-items: center; gap: 18px; }
+#blog_name { display: flex; align-items: center; flex-shrink: 0; }
+#site-name {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 1.3rem; font-weight: 800; letter-spacing: -.5px;
+  color: var(--efu-fontcolor); white-space: nowrap;
+}
+#site-name .site-badge {
+  width: 32px; height: 32px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--efu-main); color: var(--efu-white);
+  font-size: 15px; font-weight: 800;
+  box-shadow: var(--efu-shadow-main);
+}
+#site-name:hover { color: var(--efu-main); }
+#page-name-mask { flex: 0 1 auto; display: none; }
+#menus { display: flex; align-items: center; gap: 4px; margin: 0 auto; }
+#menus .menu-item {
+  position: relative; display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 10px;
+  font-size: .92rem; font-weight: 600;
+  color: var(--efu-fontcolor); white-space: nowrap;
+}
+#menus .menu-item:hover, #menus .menu-item.active {
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+}
+#menus .menu-item svg { width: 15px; height: 15px; fill: currentColor; }
+#nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-btn {
+  width: 38px; height: 38px; border-radius: 12px;
+  display: grid; place-items: center;
+  border: var(--style-border);
+  background: var(--efu-card-bg); color: var(--efu-fontcolor);
+  transition: all .25s ease;
+}
+.nav-btn:hover {
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+  border-color: var(--efu-main); transform: translateY(-2px);
+}
+.nav-btn svg { width: 18px; height: 18px; fill: currentColor; }
+#nav .nav-btn.menu-toggle { display: none; }
+
+/* Mobile drawer */
+#mobile-menu {
+  position: fixed; inset: 0; z-index: 70; visibility: hidden;
+  background: rgba(0, 0, 0, .45); opacity: 0;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+#mobile-menu.open { visibility: visible; opacity: 1; }
+#mobile-menu .drawer {
+  position: absolute; top: 0; right: 0; width: min(300px, 82vw); height: 100%;
+  background: var(--efu-card-bg); padding: 24px;
+  transform: translateX(100%); transition: transform .3s ease;
+  overflow-y: auto;
+}
+#mobile-menu.open .drawer { transform: translateX(0); }
+#mobile-menu .drawer-title {
+  font-weight: 800; font-size: 1.1rem; margin-bottom: 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+#mobile-menu .drawer a {
+  display: block; padding: 10px 12px; margin-bottom: 6px;
+  border-radius: 10px; font-weight: 600;
+}
+#mobile-menu .drawer a:hover { background: var(--efu-main); color: var(--efu-nav-hover-text); }
+
+/* ---------- Hero / home top ---------- */
+#home_top { padding: 28px 0 8px; }
+.home-top-grid {
+  display: grid;
+  grid-template-columns: 1.85fr 1fr;
+  gap: var(--gap);
+}
+.home-hero {
+  position: relative; min-height: 300px; overflow: hidden;
+  border-radius: 18px; border: var(--style-border);
+  background: linear-gradient(125deg, #425aef 0%, #7a60d2 55%, #d44040 100%);
+  color: #fff; padding: 38px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  isolation: isolate;
+}
+.home-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(255, 255, 255, .32) 0 12%, transparent 13%),
+    radial-gradient(circle at 68% 78%, rgba(255, 255, 255, .16) 0 22%, transparent 23%),
+    linear-gradient(0deg, rgba(0, 0, 0, .42), transparent 70%);
+}
+.home-hero .hero-kicker {
+  display: inline-flex; width: fit-content; align-items: center; gap: 6px;
+  background: rgba(255, 255, 255, .2); border: 1px solid rgba(255, 255, 255, .35);
+  padding: 3px 12px; border-radius: 999px; font-size: .78rem; margin-bottom: 14px;
+  backdrop-filter: blur(6px);
+}
+.home-hero h1 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin: 0 0 8px; color: #fff; }
+.home-hero p { margin: 0 0 20px; opacity: .92; font-size: .95rem; }
+.home-hero .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 999px; font-size: .88rem; font-weight: 700;
+  background: #fff; color: #2a2a35; border: 1px solid transparent;
+  transition: transform .25s ease;
+}
+.hero-btn.ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .6); }
+.hero-btn:hover { transform: translateY(-2px); color: #2a2a35; }
+.home-side { display: grid; grid-template-rows: 1fr 1fr; gap: var(--gap); }
+.home-side-card {
+  position: relative; overflow: hidden; border-radius: 18px;
+  border: var(--style-border); background: var(--efu-card-bg);
+  padding: 20px 22px; display: flex; flex-direction: column; justify-content: center;
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.home-side-card:hover { border-color: var(--efu-main); box-shadow: var(--efu-shadow-main); transform: translateY(-2px); }
+.home-side-card .side-label {
+  font-size: .75rem; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--efu-secondtext); margin-bottom: 6px;
+}
+.home-side-card .side-title { font-size: 1.05rem; font-weight: 700; line-height: 1.5; }
+.home-side-card .side-meta { font-size: .8rem; color: var(--efu-secondtext); margin-top: 6px; }
+.home-side-card .side-thumb {
+  position: absolute; right: -18px; bottom: -18px; width: 110px; height: 110px;
+  border-radius: 50%; opacity: .16; background: var(--efu-main);
+}
+
+/* ---------- Category bar ---------- */
+#category-bar { margin: 16px 0 20px; }
+.category-in-bar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 10px 14px; border-radius: 14px;
+  background: var(--efu-card-bg); border: var(--style-border);
+}
+.category-in-bar .cat-title {
+  font-weight: 800; font-size: .9rem; margin-right: 6px;
+  display: inline-flex; align-items: center; gap: 6px; color: var(--efu-main);
+}
+.category-in-bar .cat-title svg { width: 16px; height: 16px; fill: currentColor; }
+.category-in-bar a {
+  padding: 5px 14px; border-radius: 999px; font-size: .85rem; font-weight: 600;
+  background: var(--efu-secondbg); color: var(--efu-secondtext);
+}
+.category-in-bar a:hover, .category-in-bar a.active {
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+}
+.category-in-bar .cat-search { margin-left: auto; position: relative; }
+.category-in-bar .cat-search input {
+  width: 170px; padding: 6px 12px 6px 32px; border-radius: 999px;
+  border: var(--style-border); background: var(--efu-secondbg);
+  color: var(--efu-fontcolor); outline: none; font-size: .82rem;
+}
+.category-in-bar .cat-search input:focus { border-color: var(--efu-main); }
+.category-in-bar .cat-search svg {
+  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 14px; fill: var(--efu-secondtext);
+}
+
+/* ---------- Layout: content + aside ---------- */
+.layout { flex: 1; width: min(1400px, calc(100% - 40px)); margin: 0 auto; padding-top: 16px; padding-bottom: 40px; }
+.home-layout-row { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+.layout.layout--post { max-width: 1200px; }
+#content-inner { min-width: 0; }
+
+/* ---------- Post cards (#recent-posts) ---------- */
+#recent-posts {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.recent-post-item {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--efu-card-bg);
+  border: var(--style-border); border-radius: var(--radius);
+  box-shadow: var(--efu-shadow-border);
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+  animation: solitude-in .55s backwards;
+}
+.recent-post-item:hover {
+  border-color: var(--efu-main); box-shadow: var(--efu-shadow-main);
+  transform: translateY(-3px);
+}
+.recent-post-item:nth-child(2n) { animation-delay: .08s; }
+@keyframes solitude-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.post_cover { display: block; position: relative; height: 210px; overflow: hidden; background: var(--efu-secondbg); cursor: pointer; }
+.post_cover a, .post_cover .cover-inner { display: block; width: 100%; height: 100%; }
+.post_cover img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .6s ease, filter .4s ease;
+}
+.recent-post-item:hover .post_cover img { transform: scale(1.05); filter: brightness(.9); }
+.post_cover .cover-fallback {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--efu-main) 0%, #7a60d2 60%, #d44040 100%);
+  color: #fff; font-size: 3.2rem; font-weight: 800; opacity: .85;
+}
+.post_cover .cover-fallback span { text-shadow: 0 4px 18px rgba(0, 0, 0, .25); }
+.recent-post-info {
+  padding: 16px 20px 18px;
+  display: flex; flex-direction: column; gap: 10px; flex: 1;
+}
+.recent-post-info-top-tips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .72rem; }
+.recent-post-info-top-tips .original {
+  padding: 1px 9px; border-radius: 6px;
+  background: var(--efu-theme-op-light); color: var(--efu-main); font-weight: 700;
+}
+.recent-post-info-top-tips .sticky { color: #e38100; font-weight: 700; }
+.recent-post-info-top-tips .unvisited-post { margin-left: auto; color: var(--efu-secondtext); font-weight: 600; }
+.article-title {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; font-size: 1.05rem; font-weight: 800; line-height: 1.5;
+  margin: 0; color: var(--efu-fontcolor);
+}
+.recent-post-item:hover .article-title { color: var(--efu-main); }
+.post-snippet {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; font-size: .85rem; color: var(--efu-secondtext); line-height: 1.7;
+}
+.post-snippet img { display: none; }
+.article-meta-wrap {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  font-size: .76rem; color: var(--efu-secondtext);
+  padding-top: 10px; border-top: 1px dashed var(--efu-card-border);
+}
+.article-meta-wrap .article-meta { display: inline-flex; align-items: center; gap: 4px; }
+.article-meta-wrap svg { width: 13px; height: 13px; fill: currentColor; }
+.article-meta-wrap .post-meta-date { margin-left: auto; white-space: nowrap; }
+.article-meta-wrap .article-meta__tags { color: var(--efu-main); }
+
+/* ---------- Pagination ---------- */
+.pagination { display: flex; justify-content: center; gap: 10px; margin: 24px 0 0; grid-column: 1 / -1; }
+.pagination a, .pagination span {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 999px; font-size: .88rem; font-weight: 700;
+  background: var(--efu-card-bg); border: var(--style-border); color: var(--efu-secondtext);
+}
+.pagination a:hover { background: var(--efu-main); color: var(--efu-nav-hover-text); border-color: var(--efu-main); }
+
+/* ---------- Aside cards ---------- */
+#aside-content { display: flex; flex-direction: column; gap: var(--gap); }
+#aside-content .sticky_layout { position: sticky; top: 82px; display: flex; flex-direction: column; gap: var(--gap); }
+.card-widget {
+  background: var(--efu-card-bg); border: var(--style-border);
+  border-radius: var(--radius); padding: 18px;
+  box-shadow: var(--efu-shadow-border);
+}
+.card-head {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 800; font-size: .95rem; margin-bottom: 14px;
+}
+.card-head svg { width: 16px; height: 16px; fill: var(--efu-main); }
+.card-head .card-head-more { margin-left: auto; font-size: .75rem; color: var(--efu-secondtext); font-weight: 600; }
+
+/* Info card */
+.card-info { text-align: center; }
+.card-info .avatar {
+  width: 84px; height: 84px; margin: 4px auto 12px; border-radius: 50%;
+  border: 3px solid var(--efu-card-bg); box-shadow: 0 0 0 2px var(--efu-main);
+  overflow: hidden; background: var(--efu-secondbg);
+}
+.card-info .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.card-info .avatar .avatar-letter {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  font-size: 2rem; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, var(--efu-main), #7a60d2);
+}
+.card-info .name { font-weight: 800; font-size: 1.05rem; }
+.card-info .desc { font-size: .82rem; color: var(--efu-secondtext); margin: 4px 0 14px; line-height: 1.7; }
+.card-info .social-icons { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.card-info .social-icons a {
+  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--efu-secondbg); color: var(--efu-secondtext); font-size: .75rem; font-weight: 700;
+  transition: all .25s ease;
+}
+.card-info .social-icons a:hover { background: var(--efu-main); color: var(--efu-nav-hover-text); transform: translateY(-2px); }
+.card-info .social-icons svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Webinfo */
+.webinfo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.webinfo-item {
+  background: var(--efu-secondbg); border-radius: 10px; padding: 10px 8px; text-align: center;
+}
+.webinfo-item .item-name { font-size: .74rem; color: var(--efu-secondtext); }
+.webinfo-item .item-count { font-size: 1.05rem; font-weight: 800; color: var(--efu-fontcolor); line-height: 1.5; }
+
+/* Tag cloud */
+.card-tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.card-tag-cloud a {
+  padding: 3px 11px; border-radius: 999px; font-size: .8rem; font-weight: 600;
+  background: var(--efu-secondbg); color: var(--efu-secondtext);
+  transition: all .25s ease;
+}
+.card-tag-cloud a:hover, .card-tag-cloud a.highlight {
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+}
+.card-tag-cloud sup { font-size: .62rem; margin-left: 3px; opacity: .75; }
+
+/* Newest posts list */
+.card-list { list-style: none; margin: 0; padding: 0; }
+.card-list li { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--efu-card-border); }
+.card-list li:last-child { border-bottom: 0; }
+.card-list .list-thumb {
+  width: 56px; height: 46px; flex-shrink: 0; border-radius: 8px; overflow: hidden;
+  background: var(--efu-secondbg);
+}
+.card-list .list-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.card-list .list-thumb .thumb-fallback {
+  width: 100%; height: 100%; background: linear-gradient(135deg, var(--efu-main), #7a60d2);
+}
+.card-list .list-title {
+  font-size: .84rem; font-weight: 600; line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-list .list-date { font-size: .72rem; color: var(--efu-secondtext); }
+
+/* 侧栏只保留信息卡 / 标签云 / 最新 / 站点信息 / 目录，不再输出额外栏目卡片。 */
+.comment-alt { margin-top: 10px; font-size: .8rem; }
+.comment-alt .comment-link { color: var(--efu-secondtext); }
+
+/* TOC */
+.card-toc { max-height: 60vh; overflow-y: auto; }
+.toc-list { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--efu-card-border); }
+.toc-list li { margin: 0; }
+.toc-list a {
+  display: block; padding: 4px 0 4px 12px; margin-left: -2px;
+  border-left: 2px solid transparent;
+  font-size: .82rem; color: var(--efu-secondtext); line-height: 1.6;
+}
+.toc-list a:hover, .toc-list a.active {
+  color: var(--efu-main); border-left-color: var(--efu-main); font-weight: 700;
+}
+.toc-list .toc-h3 a { padding-left: 26px; font-size: .78rem; }
+.toc-empty { font-size: .82rem; color: var(--efu-secondtext); }
+
+/* ---------- Single post ---------- */
+#post { min-width: 0; }
+.post-main { min-width: 0; }
+.solitude-sidebar { display: flex; flex-direction: column; gap: var(--gap); }
+.solitude-sidebar > .widget { width: 100%; }
+.post-header {
+  position: relative; overflow: hidden; margin-bottom: 16px;
+  border-radius: 18px; border: var(--style-border);
+  background: var(--efu-card-bg);
+}
+.post-header .post-cover-img { height: 320px; overflow: hidden; background: var(--efu-secondbg); }
+.post-header .post-cover-img img { width: 100%; height: 100%; object-fit: cover; }
+.post-header .post-cover-img .cover-fallback {
+  height: 100%; display: grid; place-items: center; color: #fff; font-size: 4rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--efu-main), #7a60d2 60%, #d44040);
+}
+.post-header .post-head-body { padding: 26px 30px 30px; }
+.post-title { font-size: clamp(1.5rem, 3vw, 2.15rem); margin: 0 0 12px; }
+.post-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: .82rem; color: var(--efu-secondtext); }
+.post-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.post-meta svg { width: 14px; height: 14px; fill: currentColor; }
+.post-meta a { color: var(--efu-main); }
+
+.article-container {
+  background: var(--efu-card-bg); border: var(--style-border);
+  border-radius: var(--radius); padding: 30px;
+  box-shadow: var(--efu-shadow-border);
+  font-size: 1rem; line-height: 2;
+  overflow-wrap: break-word;
+}
+.article-container h1, .article-container h2, .article-container h3, .article-container h4 {
+  scroll-margin-top: 84px; margin: 1.8em 0 .7em;
+}
+.article-container h2 {
+  font-size: 1.45rem; padding-left: 14px; border-left: 4px solid var(--efu-main);
+}
+.article-container h3 { font-size: 1.2rem; }
+.article-container h3::before { content: '# '; color: var(--efu-main); }
+.article-container img {
+  border-radius: 10px; display: block; margin: 16px auto;
+  box-shadow: var(--efu-shadow-black); cursor: zoom-in;
+}
+.article-container a { color: var(--efu-main); text-decoration: underline; text-underline-offset: 3px; }
+.article-container blockquote {
+  margin: 16px 0; padding: 12px 18px; border-left: 4px solid var(--efu-main);
+  background: var(--efu-theme-op-light); border-radius: 0 8px 8px 0;
+  color: var(--efu-secondtext);
+}
+.article-container pre {
+  margin: 16px 0; padding: 16px 18px; border-radius: 10px; overflow-x: auto;
+  background: var(--efu-hl-bg); border: var(--style-border);
+  font-family: Consolas, Monaco, 'Courier New', monospace; font-size: .86rem; line-height: 1.7;
+}
+.article-container :not(pre) > code {
+  padding: 2px 6px; border-radius: 5px; font-size: .88em;
+  background: var(--efu-theme-op-light); color: var(--efu-main);
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+}
+.article-container hr { border: 0; border-top: 1px dashed var(--efu-card-border); margin: 24px 0; }
+.article-container table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .9rem; }
+.article-container th, .article-container td { border: var(--style-border); padding: 8px 12px; }
+.article-container th { background: var(--efu-secondbg); font-weight: 700; }
+.article-container ul, .article-container ol { padding-left: 1.6em; margin: 0 0 1.1em; }
+.article-container .separator { margin: 14px 0; }
+
+.post-copyright {
+  margin-top: 16px; padding: 16px 20px; border-radius: var(--radius);
+  background: var(--efu-theme-op-light); border: 1px dashed var(--efu-theme-op-deep);
+  font-size: .84rem; color: var(--efu-secondtext);
+}
+.post-copyright .copyright-title { font-weight: 800; color: var(--efu-fontcolor); margin-bottom: 4px; }
+.post-copyright a { color: var(--efu-main); }
+.post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.post-tags a {
+  padding: 3px 12px; border-radius: 999px; font-size: .8rem; font-weight: 600;
+  background: var(--efu-card-bg); border: var(--style-border); color: var(--efu-secondtext);
+}
+.post-tags a:hover { background: var(--efu-main); color: var(--efu-nav-hover-text); border-color: var(--efu-main); }
+
+/* ---------- Blogger 内置评论区 ---------- */
+#solitude-backend-data { display: none !important; }   /* 服务端头像数据源，不参与布局 */
+.solitude-author-photo { display: none !important; }
+#solitude-comments { margin-top: 16px; }
+.comments-card {
+  padding: 22px; border-radius: var(--radius);
+  background: var(--efu-card-bg); border: var(--style-border);
+}
+.comments-card > h3 { font-size: 1.1rem; margin: 0 0 14px; }
+.comments-card > h3::before {
+  content: ''; display: inline-block; width: 4px; height: 1em; margin-right: 8px;
+  border-radius: 2px; background: var(--efu-main); vertical-align: -2px;
+}
+.comments, .comment-thread { color: var(--efu-fontcolor); font-size: .9rem; line-height: 1.8; }
+.comments a, .comment-thread a { color: var(--efu-main); }
+.comments-title { font-size: .95rem; margin: 0 0 12px; color: var(--efu-secondtext); font-weight: 600; }
+.comments-content { min-height: 0; }
+
+/* 扁平评论（data:post.comments 循环） */
+.comments-list dl#comments-block { margin: 0; }
+.comments-list dt.comment-author {
+  font-weight: 700; display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  padding-top: 10px;
+}
+.comments-list dt.comment-author img,
+.comment-thread .avatar-image-container img { border-radius: 50%; }
+.comments-list dd.comment-body {
+  margin: 4px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--efu-secondbg); overflow-wrap: anywhere;
+}
+.comments-list dd.comment-body p { margin: 0; }
+.comments-list .deleted-comment { color: var(--efu-gray); font-style: italic; }
+.comments-list dd.comment-footer,
+.comments-list .comment-footer { margin: 6px 0 16px; }
+.comments-list .comment-timestamp { font-size: .78rem; color: var(--efu-secondtext); }
+.comments-list .comment-timestamp a { color: var(--efu-secondtext); }
+.comments-list .item-control { margin-left: 10px; font-size: .78rem; }
+.paging-control-container { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; font-size: .82rem; }
+
+/* 线程评论（data:post.commentHtml 渲染的评论树） */
+.comment-thread ol, .comment-thread ul { padding-left: 1.2em; }
+.comment-thread .comment-block,
+.comment-thread .comment { margin: 0 0 14px; }
+.comment-thread .comment-header { font-weight: 700; }
+.comment-thread .comment-body,
+.comment-thread .comment-content { padding: 8px 0; overflow-wrap: anywhere; }
+.comment-thread .comment-timestamp,
+.comment-thread .comment-footer { font-size: .78rem; color: var(--efu-secondtext); }
+.comment-thread .comment-replies { margin-top: 8px; padding-left: 18px; border-left: 2px solid var(--efu-secondbg); }
+.comment-thread .continue-reading,
+.comment-thread .comment-reply { font-size: .82rem; }
+.comment-link { font-weight: 600; }
+
+/* 原生评论框 iframe */
+.comment-form { margin-top: 18px; }
+.comment-form h4#comment-post-message { font-size: .98rem; margin: 0 0 6px; }
+.comment-form > p { font-size: .82rem; color: var(--efu-secondtext); margin: 0 0 10px; }
+a#comment-editor-src { display: none; }
+iframe#comment-editor {
+  width: 100%; min-height: 180px; border: 0; display: block;
+  background: transparent; color-scheme: light;
+}
+[data-theme='dark'] iframe#comment-editor { color-scheme: dark; }
+.comment-closed { font-size: .85rem; color: var(--efu-secondtext); }
+.article-meta.comment-count a { color: inherit; }
+.article-meta.comment-count a:hover { color: var(--efu-main); }
+
+/* Empty / 404 */
+.empty-card {
+  grid-column: 1 / -1; text-align: center; padding: 60px 20px;
+  background: var(--efu-card-bg); border: var(--style-border); border-radius: var(--radius);
+}
+.empty-card .empty-code { font-size: 3.4rem; font-weight: 800; color: var(--efu-main); }
+.empty-card p { color: var(--efu-secondtext); }
+
+/* ---------- Right side floating buttons ---------- */
+#rightside {
+  position: fixed; right: 22px; bottom: 28px; z-index: 55;
+  display: flex; flex-direction: column; gap: 10px;
+  opacity: 0; transform: translateX(20px); pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
+}
+#rightside.show { opacity: 1; transform: translateX(0); pointer-events: auto; }
+.rightside-btn {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: grid; place-items: center; position: relative;
+  background: var(--efu-card-bg); color: var(--efu-fontcolor);
+  border: var(--style-border); box-shadow: var(--efu-shadow-border);
+  transition: all .25s ease;
+}
+.rightside-btn:hover {
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+  border-color: var(--efu-main); transform: translateX(-3px);
+}
+.rightside-btn svg { width: 19px; height: 19px; fill: currentColor; }
+#read-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: var(--efu-main); z-index: 90; transition: width .1s linear;
+}
+
+/* ---------- Footer (Solitude 3.0: deal row / link groups / bar) ---------- */
+#footer {
+  position: relative; display: flex; flex-direction: column;
+  margin-top: auto; padding-top: .5rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, var(--efu-card-bg) 25%);
+}
+
+/* Round social shortcuts (centre avatar removed on request) */
+#footer_deal { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding-top: 2rem; }
+.deal_link {
+  display: flex; justify-content: center; align-items: center;
+  width: 32px; height: 32px; margin: 1rem 27px;
+  color: var(--efu-card-bg); background: var(--efu-fontcolor);
+  border-radius: 3rem; transition: transform .3s, background .3s, color .3s;
+}
+.deal_link svg { width: 16px; height: 16px; fill: currentColor; }
+.deal_link:hover { color: var(--efu-white); background: var(--efu-main); transform: scale(1.1); }
+
+/* Grouped text links */
+#st-footer {
+  display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly;
+  width: 100%; max-width: 1200px; margin: 1rem auto 3rem; padding: 0 1rem; gap: 12px;
+}
+.footer-group { min-width: 120px; }
+.footer-links { display: flex; flex-direction: column; }
+.footer-item {
+  max-width: 140px; margin-right: auto; padding: 8px; border-radius: 12px;
+  font-size: .8rem; line-height: 1; color: var(--efu-fontcolor);
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.footer-item:hover { color: var(--efu-theme); background: var(--efu-theme-op-light); }
+[data-theme='dark'] .footer-item:hover { background: var(--efu-theme-op); }
+.footer-title { color: var(--efu-secondtext); font-size: .8rem; margin: .5rem 0 .7rem 8px; font-weight: 700; }
+.footer-title-group { display: flex; align-items: center; margin: .5rem 0 .7rem 8px; }
+.footer-title-group .footer-title { margin: 0; }
+.random-friends-btn {
+  display: flex; align-items: center; justify-content: center; margin-left: 8px;
+  padding: 0; border: 0; background: none; cursor: pointer; color: var(--efu-secondtext);
+  opacity: .65; transition: color .3s, opacity .3s, transform .3s;
+}
+.random-friends-btn:hover { color: var(--efu-main); opacity: 1; transform: rotate(90deg); }
+.random-friends-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Copyright bar */
+#footer-bar {
+  border-top: var(--style-border); background: var(--efu-secondbg);
+  color: var(--efu-fontcolor); font-size: .8rem;
+}
+.footer-bar-links {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  max-width: 1400px; width: 100%; margin: 0 auto; padding: 1rem 1.5rem; gap: 8px; line-height: 1;
+}
+.footer-bar-left { display: flex; flex-direction: column; gap: 8px; }
+.copyright { display: flex; align-items: center; gap: 6px; }
+.beian-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.footer-bar-right { display: flex; flex-wrap: wrap; align-items: center; }
+.footer-bar-link {
+  display: inline-flex; align-items: center; gap: .5rem; margin: 0 4px;
+  padding: 8px; border-radius: 32px; white-space: nowrap;
+  font-size: .8rem; font-weight: 700; color: var(--efu-fontcolor);
+}
+.footer-bar-link:hover { color: var(--efu-theme); background: var(--efu-main-op); }
+.beian-group .footer-bar-link { padding: 0; margin: 0; font-size: 12px; font-weight: 400; color: var(--efu-secondtext); }
+.beian-group .footer-bar-link:hover { color: var(--efu-main); background: none; }
+.author-avatar {
+  width: 20px; height: 20px; min-width: 20px; border-radius: 20px; overflow: hidden;
+  display: inline-grid; place-items: center; background: var(--efu-main);
+}
+.author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.author-avatar .avatar-letter { color: #fff; font-size: 11px; font-weight: 800; line-height: 1; }
+/* The Attribution widget must stay in the template, but its text is hidden. */
+#Attribution1 { display: none !important; }
+
+/* ---------- Search overlay ---------- */
+#search-mask {
+  position: fixed; inset: 0; z-index: 100; display: none;
+  background: rgba(0, 0, 0, .5); backdrop-filter: blur(6px);
+  padding: 12vh 20px 20px; overflow-y: auto;
+}
+#search-mask.open { display: block; }
+.search-panel {
+  width: min(620px, 100%); margin: 0 auto; padding: 22px;
+  border-radius: 18px; background: var(--efu-card-bg); border: var(--style-border);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .25);
+}
+.search-panel form { display: flex; gap: 10px; }
+.search-panel input[type='text'] {
+  flex: 1; padding: 11px 16px; border-radius: 10px; outline: none;
+  border: var(--style-border); background: var(--efu-secondbg); color: var(--efu-fontcolor);
+}
+.search-panel input:focus { border-color: var(--efu-main); }
+.search-panel button {
+  padding: 10px 20px; border: 0; border-radius: 10px; font-weight: 700;
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+}
+.search-panel .search-close {
+  float: right; background: none; border: 0; color: var(--efu-secondtext); font-size: 1.3rem;
+}
+.search-panel .search-hint { font-size: .8rem; color: var(--efu-secondtext); margin-top: 12px; }
+
+/* ---------- RSS / contact dialog ---------- */
+#solitude-dialog {
+  position: fixed; inset: 0; z-index: 110; display: none;
+  background: rgba(0, 0, 0, .5); backdrop-filter: blur(6px);
+  padding: 18vh 20px 20px; overflow-y: auto;
+}
+#solitude-dialog.open { display: block; }
+.dialog-panel {
+  width: min(560px, 100%); margin: 0 auto; padding: 22px;
+  border-radius: 18px; background: var(--efu-card-bg); border: var(--style-border);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .25);
+}
+.dialog-panel h3 { margin: 0 0 10px; font-size: 1.05rem; }
+.dialog-panel p {
+  margin: 0 0 14px; font-size: .86rem; line-height: 1.8;
+  color: var(--efu-secondtext);
+}
+.dialog-close {
+  float: right; background: none; border: 0; cursor: pointer;
+  color: var(--efu-secondtext); font-size: 1.3rem;
+}
+.dialog-value-row { display: flex; gap: 8px; }
+.dialog-value-row input {
+  flex: 1; min-width: 0; padding: 10px 12px; border-radius: 10px; outline: none;
+  border: var(--style-border); background: var(--efu-secondbg);
+  color: var(--efu-fontcolor); font-size: .8rem;
+}
+.dialog-value-row input:focus { border-color: var(--efu-main); }
+.dialog-value-row button {
+  padding: 10px 16px; border: 0; border-radius: 10px; white-space: nowrap;
+  font-weight: 700; cursor: pointer;
+  background: var(--efu-main); color: var(--efu-nav-hover-text);
+}
+.dialog-hint { margin-top: 12px; font-size: .78rem; color: var(--efu-secondtext); }
+
+/* ---------- About dialog 仿参考页底部弹层 ---------- */
+#solitude-about {
+  position: fixed; inset: 0; z-index: 115; display: none;
+  background: rgba(0, 0, 0, .72); backdrop-filter: blur(6px);
+  padding: 12vh 18px 20px; overflow-y: auto;
+}
+#solitude-about.open { display: block; }
+.about-panel {
+  width: 100%; max-width: 460px; box-sizing: border-box; margin: 0 auto;
+  border-radius: 16px; background: var(--efu-card-bg);
+  border: var(--style-border); box-shadow: 0 25px 60px rgba(0, 0, 0, .35);
+  overflow: hidden; animation: aboutFadeIn .3s ease-out;
+}
+@keyframes aboutFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.about-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 16px 22px 12px;
+  border-bottom: 2px solid var(--efu-main);
+}
+.about-header h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
+.about-header .dialog-close { float: none; }
+.about-body { max-height: 62vh; overflow-y: auto; padding: 18px 22px 20px; }
+.about-profile { text-align: center; margin-bottom: 16px; }
+.about-avatar {
+  width: 72px; height: 72px; margin: 0 auto 10px; border-radius: 50%;
+  overflow: hidden; background: var(--efu-secondbg);
+  box-shadow: 0 0 0 2px var(--efu-main);
+}
+.about-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-avatar .avatar-letter {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  font-size: 1.6rem; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, var(--efu-main), #7a60d2);
+}
+.about-name { font-size: 1rem; font-weight: 800; }
+.about-desc { margin-top: 4px; font-size: .8rem; color: var(--efu-secondtext); line-height: 1.7; }
+.about-text p {
+  margin: 0 0 10px; font-size: .85rem; line-height: 1.85;
+  color: var(--efu-fontcolor);
+}
+.about-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.about-links a {
+  padding: 6px 13px; border-radius: 999px; font-size: .78rem; font-weight: 700;
+  background: var(--efu-secondbg); color: var(--efu-secondtext);
+}
+.about-links a:hover { background: var(--efu-main); color: var(--efu-nav-hover-text); }
+
+/* ---------- Lightbox ---------- */
+#solitude-lightbox {
+  position: fixed; inset: 0; z-index: 120; display: none;
+  background: rgba(0, 0, 0, .88); place-items: center; cursor: zoom-out; padding: 24px;
+}
+#solitude-lightbox.open { display: grid; }
+#solitude-lightbox img { max-width: 96vw; max-height: 92vh; border-radius: 8px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1300px) {
+  .home-layout-row { grid-template-columns: minmax(0, 1fr) 280px; }
+}
+@media (max-width: 1024px) {
+  #menus { display: none; }
+  #nav .nav-btn.menu-toggle { display: grid; }
+  .home-layout-row { grid-template-columns: 1fr; }
+  #aside-content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #aside-content .sticky_layout { position: static; }
+  .home-top-grid { grid-template-columns: 1fr; }
+  .home-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+}
+@media (max-width: 768px) {
+  .wrap, .layout { width: calc(100% - 24px); }
+  #nav { height: 58px; padding: 0 12px; }
+  #body-wrap { padding-top: 58px; }
+  #site-name { font-size: 1.1rem; }
+  #home_top { padding-top: 20px; }
+  .home-hero { min-height: 250px; padding: 26px; }
+  #recent-posts { grid-template-columns: 1fr; }
+  #aside-content { grid-template-columns: 1fr; }
+  .home-side { grid-template-columns: 1fr; }
+  #footer_deal { max-width: 100%; padding: 1rem 12px 0; }
+  .deal_link { margin: .7rem 8px; }
+  #st-footer { justify-content: flex-start; gap: 8px 18px; margin: .5rem auto 2rem; }
+  .footer-group { min-width: 40%; flex: 1 1 40%; }
+  #footer-bar .footer-bar-links {
+    flex-direction: column; justify-content: center; gap: 10px;
+    padding: 1rem 12px; text-align: center;
+  }
+  .footer-bar-left, .footer-bar-right { width: 100%; }
+  .copyright { flex-wrap: wrap; justify-content: center; }
+  .footer-bar-right, .beian-group { justify-content: center; }
+  .article-container, .post-header .post-head-body { padding: 20px; }
+  .post-header .post-cover-img { height: 200px; }
+  .category-in-bar .cat-search { margin-left: 0; width: 100%; }
+  .category-in-bar .cat-search input { width: 100%; }
+  #rightside { right: 12px; bottom: 16px; }
+  .rightside-btn { width: 38px; height: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+  ]]></b:skin>
+  <script>//<![CDATA[
+  (function () {
+    try {
+      var saved = localStorage.getItem('solitude-blogger-theme');
+      if (!saved) {
+        saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+    } catch (e) {}
+  })();
+  window.SOLITUDE_CONFIG = {
+    siteSince: '2023-04-20',
+    authorName: '',
+    avatar: '',
+    useFaviconAvatar: true,  // 头像优先用后台「布局 → 网站图标」
+    useProfileAvatar: true,  // 网站图标取不到时回退到后台个人资料头像
+    // 下面两项留空 = 自动读取后台「设置 → 基本 → 说明」；填写任意文字则覆盖后台说明。
+    authorDesc: '',
+    heroDesc: '',
+    heroKicker: '欢迎光临',
+    defaultCover: '',
+    highlightTags: [],
+    newestCount: 5,
+    feedMax: 12,
+
+    /* ===== (1) 邮箱地址 =====
+       把引号里换成你自己的邮箱，页脚那个信封按钮就会变成 mailto: 链接。
+       留空时点击按钮只会弹提示，不会打开一封收件人为空的邮件。 */
+    email: '',
+
+    /* ===== (2) 页脚友情链接 =====
+       一条链接一行，格式：{ name: '显示文字', url: '完整网址' }
+       网址要带 https://；站内动作可加 action: 'rss' / 'search' / 'top'。
+       想加一条就复制一行，注意上一行末尾必须有英文逗号，最后一行不要逗号。
+       下面是示例，请替换成你自己的友链。 */
+    friendLinks: [
+      { name: 'Solitude 主题', url: 'https://solitude.js.org/' },
+      { name: '主题仓库', url: 'https://github.com/everfu/hexo-theme-solitude' },
+      { name: '示例友链一', url: 'https://example.com/' },
+      { name: '示例友链二', url: 'https://example.org/' }
+    ],
+    friendCount: 4,          // 每次随机显示几条；点页脚「换一批」可重新抽取
+
+    /* ===== (3) RSS 订阅地址 =====
+       留空 = 自动使用 博客根地址 + feeds/posts/default?alt=rss */
+    feedUrl: '',
+
+    /* ===== (4) 关于弹窗 =====
+       导航菜单 首页按钮 页脚链接 手机菜单里的「关于」都会打开这个弹层。
+       title 是标题，paragraphs 一行一段，links 是底部快捷入口。
+       邮箱入口会自动读取上面的 email 配置，不用在这里重复填。
+       action 可用 'rss' / 'search' / 'top'；url 外链要带 https://。 */
+    about: {
+      title: '关于我',
+      paragraphs: [
+        '你好，欢迎来到我的小站。',
+        '这里记录一些工具、资源和日常折腾的笔记，内容都来自自己的实际使用与整理。',
+        '如果文章对你有帮助，欢迎收藏或订阅；有建议也可以通过下面的方式联系我。'
+      ],
+      links: [
+        { name: '首页', url: '/' },
+        { name: 'RSS 订阅', url: '#', action: 'rss' },
+        { name: '站内搜索', url: '#search', action: 'search' }
+      ]
+    }
+    // 其他可选配置见 README：footerStartYear / footerSocial / footerGroups /
+    // footerBeian / footerRight
+  };
+  //]]></script>
+</head>
+<body>
+
+<svg aria-hidden='true' style='display:none' xmlns='http://www.w3.org/2000/svg'>
+  <symbol id='i-sun' viewBox='0 0 24 24'><path d='M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5h0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM4.2 4.2a1 1 0 0 1 1.4 0l1.5 1.5a1 1 0 0 1-1.4 1.4L4.2 5.6a1 1 0 0 1 0-1.4zm12.7 12.7a1 1 0 0 1 1.4 0l1.5 1.5a1 1 0 0 1-1.4 1.4l-1.5-1.5a1 1 0 0 1 0-1.4zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zM4.2 19.8a1 1 0 0 1 0-1.4l1.5-1.5a1 1 0 0 1 1.4 1.4l-1.5 1.5a1 1 0 0 1-1.4 0zm12.7-12.7a1 1 0 0 1 0-1.4l1.5-1.5a1 1 0 0 1 1.4 1.4l-1.5 1.5a1 1 0 0 1-1.4 0z'/></symbol>
+  <symbol id='i-moon' viewBox='0 0 24 24'><path d='M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-9 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z'/></symbol>
+  <symbol id='i-search' viewBox='0 0 24 24'><path d='M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z'/></symbol>
+  <symbol id='i-top' viewBox='0 0 24 24'><path d='M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z'/></symbol>
+  <symbol id='i-menu' viewBox='0 0 24 24'><path d='M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z'/></symbol>
+  <symbol id='i-close' viewBox='0 0 24 24'><path d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></symbol>
+  <symbol id='i-home' viewBox='0 0 24 24'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></symbol>
+  <symbol id='i-tag' viewBox='0 0 24 24'><path d='M20 10V4H4v6a2 2 0 0 0 .6 1.4l7 7a2 2 0 0 0 2.8 0l5-5A2 2 0 0 0 20 10zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z'/></symbol>
+  <symbol id='i-clock' viewBox='0 0 24 24'><path d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7z'/></symbol>
+  <symbol id='i-list' viewBox='0 0 24 24'><path d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/></symbol>
+  <symbol id='i-info' viewBox='0 0 24 24'><path d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/></symbol>
+  <symbol id='i-user' viewBox='0 0 24 24'><path d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6z'/></symbol>
+  <symbol id='i-arrow-left' viewBox='0 0 24 24'><path d='M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z'/></symbol>
+  <symbol id='i-arrow-right' viewBox='0 0 24 24'><path d='M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z'/></symbol>
+  <symbol id='i-star' viewBox='0 0 24 24'><path d='m12 17.27 6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/></symbol>
+  <symbol id='i-mail' viewBox='0 0 24 24'><path d='M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z'/></symbol>
+  <symbol id='i-rss' viewBox='0 0 24 24'><path d='M6.2 17.8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM2 10a10 10 0 0 1 10 10h-3A7 7 0 0 0 2 13v-3zm0-5a15 15 0 0 1 15 15h-3A12 12 0 0 0 2 8V5z'/></symbol>
+  <symbol id='i-github' viewBox='0 0 24 24'><path d='M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z'/></symbol>
+  <symbol id='i-x' viewBox='0 0 24 24'><path d='M18.9 2H22l-7.4 8.5L23.3 22h-6.8l-5.3-7-6.1 7H2l7.9-9L1.4 2h7l4.8 6.4L18.9 2zm-1.2 18h1.7L7.2 3.9H5.4L17.7 20z'/></symbol>
+  <symbol id='i-telegram' viewBox='0 0 24 24'><path d='M21.9 3.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.6 13 1.8 11.5c-1-.3-1-1 .2-1.5L20.6 1.8c.9-.3 1.6.2 1.3 1.5z'/></symbol>
+  <symbol id='i-refresh' viewBox='0 0 24 24'><path d='M17.65 6.35A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.76-4.24L13 11h8V3l-3.35 3.35z'/></symbol>
+  <symbol id='i-link' viewBox='0 0 24 24'><path d='M3.9 12a3.1 3.1 0 0 1 3.1-3.1h4V7H7a5 5 0 0 0 0 10h4v-1.9H7A3.1 3.1 0 0 1 3.9 12zM8 13h8v-2H8v2zm9-6h-4v1.9h4a3.1 3.1 0 0 1 0 6.2h-4V17h4a5 5 0 0 0 0-10z'/></symbol>
+</svg>
+
+<div id='solitude-meta' expr:data-blog-url='data:blog.homepageUrl' expr:data-blog-title='data:blog.title' style='display:none'></div>
+
+<!-- 后台数据源：全部由 Blogger 服务端直接渲染，不使用 Feed 猜测/放大 URL。
+     网站图标 = 「布局 → 网站图标」上传的图标，Blogger 放在博客根 /favicon.ico，
+                用 data:blog.homepageUrl 拼出，自定义域名同样适用。
+     Profile 小工具 data:photo.url  = 「布局 → 个人资料」的头像（网站图标的回退）
+     Header 小工具 data:description = 「设置 → 基本 → 说明」（与「布局 → 页首」里的说明同步）
+     data:blog.metaDescription 属于「搜索偏好 → 元标记」的搜索说明，是另一个字段，不用作简介。
+     Header1 是本模板唯一的页首小工具，避免同类小工具重复带来的导入兼容问题。 -->
+<div id='solitude-backend-data' style='display:none'>
+  <img alt='' data-role='backend-favicon' expr:src='data:blog.homepageUrl + &quot;favicon.ico&quot;' style='display:none'/>
+  <b:section id='solitude-backend-section' showaddelement='no'>
+    <b:widget id='Profile1' locked='true' title='' type='Profile'>
+      <b:includable id='main'>
+        <b:if cond='data:team'>
+          <b:loop values='data:authors' var='author'>
+            <span data-role='backend-name'><data:author.displayname/></span>
+          </b:loop>
+        <b:else/>
+          <b:if cond='data:photo.url'>
+            <img alt='' data-role='backend-avatar' expr:src='data:photo.url'/>
+          </b:if>
+          <span data-role='backend-name'><data:displayname/></span>
+        </b:if>
+      </b:includable>
+    </b:widget>
+    <b:widget id='Header1' locked='true' title='' type='Header'>
+      <b:includable id='main'>
+        <span data-role='backend-desc'><data:description/></span>
+      </b:includable>
+    </b:widget>
+  </b:section>
+</div>
+
+<div id='read-progress'></div>
+
+<div id='body-wrap'>
+
+  <header id='page-header'>
+    <nav id='nav'>
+      <div id='nav-group'>
+        <div id='blog_name'>
+          <a id='site-name' expr:href='data:blog.homepageUrl' expr:title='data:blog.title'>
+            <span class='site-badge'>S</span>
+            <span class='title'><data:blog.title/></span>
+          </a>
+        </div>
+        <div id='menus'>
+          <a class='menu-item active' expr:href='data:blog.homepageUrl'><svg><use href='#i-home'/></svg>首页</a>
+          <a class='menu-item' data-action='about' href='#about'><svg><use href='#i-user'/></svg>关于</a>
+          <a class='menu-item' href='#aside-content'><svg><use href='#i-tag'/></svg>标签</a>
+          <a class='menu-item' href='#footer'><svg><use href='#i-info'/></svg>站点</a>
+        </div>
+        <div id='nav-right'>
+          <a class='nav-btn' data-action='search' href='#search' title='搜索'><svg><use href='#i-search'/></svg></a>
+          <a class='nav-btn' data-action='theme' data-role='theme-toggle' href='#theme' title='切换深浅模式'>
+            <svg class='theme-icon-moon'><use href='#i-moon'/></svg>
+            <svg class='theme-icon-sun' style='display:none'><use href='#i-sun'/></svg>
+          </a>
+          <button class='nav-btn menu-toggle' data-action='menu' type='button' title='打开菜单'><svg><use href='#i-menu'/></svg></button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <b:if cond='data:view.isHomepage'>
+    <section id='home_top'>
+      <div class='wrap home-top-grid'>
+        <div class='home-hero'>
+          <span class='hero-kicker'><svg style='width:14px;height:14px;fill:currentColor;vertical-align:-2px'><use href='#i-star'/></svg> <span data-role='hero-kicker'>欢迎光临</span></span>
+          <h1 data-role='hero-title'><data:blog.title/></h1>
+          <p data-role='hero-desc'></p>
+          <div class='hero-actions'>
+            <a class='hero-btn' href='#recent-posts'>开始阅读 <svg style='width:14px;height:14px;fill:currentColor'><use href='#i-arrow-right'/></svg></a>
+            <a class='hero-btn ghost' data-action='about' href='#about'>关于本站</a>
+          </div>
+        </div>
+        <div class='home-side'>
+          <div class='home-side-card' id='hero-latest'>
+            <div class='side-label'>最新文章</div>
+            <div class='side-title'>正在加载…</div>
+            <div class='side-meta'>稍候片刻</div>
+            <div class='side-thumb'></div>
+          </div>
+          <div class='home-side-card'>
+            <div class='side-label'>站点状态</div>
+            <div class='side-title'>已运行 <span data-stat='runtime'>—</span> 天</div>
+            <div class='side-meta'>共 <span data-stat='posts'>—</span> 篇文章 · 最后更新 <span data-stat='updated'>—</span></div>
+            <div class='side-thumb'></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </b:if>
+
+  <main class='layout' id='content-inner'>
+    <div id='category-bar' class='category-in-bar'>
+      <span class='cat-title'><svg><use href='#i-tag'/></svg>导航</span>
+      <a class='active' expr:href='data:blog.homepageUrl'>首页</a>
+      <span id='cat-links' style='display:contents'></span>
+      <form class='cat-search' expr:action='data:blog.homepageUrl + &quot;search&quot;' id='category-search-form' method='get'>
+        <svg><use href='#i-search'/></svg>
+        <input name='q' placeholder='搜索文章…' type='text'/>
+      </form>
+    </div>
+
+    <div class='home-layout-row'>
+      <div id='home'>
+        <b:section id='main' showaddelement='no'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+            <b:includable id='main'>
+              <b:if cond='data:view.isMultipleItems'>
+                <div id='recent-posts'>
+                  <b:loop values='data:posts' var='post'>
+                    <b:include data='post' name='post'/>
+                  </b:loop>
+                </div>
+                <b:include name='nextprev'/>
+              <b:else/>
+                <div id='post'>
+                  <b:loop values='data:posts' var='post'>
+                    <b:include data='post' name='post'/>
+                  </b:loop>
+                </div>
+              </b:if>
+            </b:includable>
+
+            <b:includable id='nextprev'>
+              <div class='pagination'>
+                <b:if cond='data:newerPageUrl'>
+                  <a expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'><svg style='width:14px;height:14px;fill:currentColor'><use href='#i-arrow-left'/></svg> 较新文章</a>
+                </b:if>
+                <b:if cond='data:olderPageUrl'>
+                  <a expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>更早文章 <svg style='width:14px;height:14px;fill:currentColor'><use href='#i-arrow-right'/></svg></a>
+                </b:if>
+              </div>
+            </b:includable>
+
+            <b:includable id='post' var='post'>
+              <!-- 文章作者头像：Blogger 后台个人资料照片，服务端数据标签 -->
+              <b:if cond='data:post.authorPhoto.url'>
+                <img alt='' class='solitude-author-photo' expr:src='data:post.authorPhoto.url' style='display:none'/>
+              </b:if>
+              <b:if cond='data:view.isMultipleItems'>
+                <article class='recent-post-item' expr:data-href='data:post.url'>
+                  <!-- 封面整块是链接 点击图片即可进入文章 无 JS 时同样有效 -->
+                  <a class='post_cover' expr:href='data:post.url' expr:title='data:post.title'>
+                    <div class='cover-fallback'><span>◈</span></div>
+                  </a>
+                  <div class='recent-post-info'>
+                    <div class='recent-post-info-top'>
+                      <div class='recent-post-info-top-tips'>
+                        <b:loop values='data:post.labels' var='label'>
+                          <span class='original'><data:label.name/></span>
+                        </b:loop>
+                        <a class='unvisited-post' expr:href='data:post.url'>阅读全文 →</a>
+                      </div>
+                      <h2 class='article-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
+                    </div>
+                    <div class='post-snippet'>
+                      <b:eval expr='data:post.body snippet { length: 150, links: false, linebreaks: false }'/>
+                    </div>
+                    <div class='article-meta-wrap'>
+                      <span class='article-meta'><svg><use href='#i-clock'/></svg><data:post.timestamp/></span>
+                      <b:if cond='data:post.allowComments'>
+                        <span class='article-meta comment-count'><b:include data='post' name='comment_count_picker'/></span>
+                      </b:if>
+                      <a class='article-meta post-meta-date' expr:href='data:post.url'>阅读全文 →</a>
+                    </div>
+                  </div>
+                </article>
+              <b:else/>
+                <div class='post-main' expr:data-href='data:post.url'>
+                  <div class='post-header'>
+                    <div class='post-cover-img'><div class='cover-fallback'>◈</div></div>
+                    <div class='post-head-body'>
+                      <h1 class='post-title'><data:post.title/></h1>
+                      <div class='post-meta'>
+                        <span><svg><use href='#i-clock'/></svg> 发表于 <data:post.timestamp/></span>
+                        <span><svg><use href='#i-user'/></svg> <span data-role='author-name'><data:blog.title/></span></span>
+                        <span><svg><use href='#i-tag'/></svg>
+                          <b:loop values='data:post.labels' var='label'>
+                            <a expr:href='data:label.url'><data:label.name/></a> 
+                          </b:loop>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <article class='article-container post-body'>
+                    <data:post.body/>
+                  </article>
+                  <div class='post-copyright'>
+                    <div class='copyright-title'>版权声明</div>
+                    转载请注明出处：<a expr:href='data:post.url'><data:post.title/></a>
+                  </div>
+                  <div class='post-tags'>
+                    <b:loop values='data:post.labels' var='label'>
+                      <a expr:href='data:label.url'># <data:label.name/></a>
+                    </b:loop>
+                  </div>
+                  <!-- 评论容器不做 allowComments 总判断：后台把评论位置设为「整页」/「弹窗」时
+                       仍要显示评论列表与「发表评论」入口，避免整块被吞掉看不到任何东西。 -->
+                  <div class='comments-card' id='solitude-comments'>
+                    <h3>评论</h3>
+                    <b:include data='post' name='comment_picker'/>
+                  </div>
+                </div>
+              </b:if>
+            </b:includable>
+
+            <!-- ===== Blogger 内置评论系统 =====
+                 显式定义整套 includable，不依赖 v2 默认实现的回退行为。
+                 评论区、评论框 iframe、回复/删除、分页全部由 Blogger 原生渲染。 -->
+            <b:includable id='comment_picker' var='post'>
+              <div class='comments' id='comments'>
+                <a name='comments'/>
+                <h4 class='comments-title'><data:post.commentLabelFull/></h4>
+                <div class='comments-content'>
+                  <!-- 与 Blogger 官方模板一致的分发：线程评论走 threaded_comments
+                       （#comment-holder 由服务端或 commentSrc 脚本填充），
+                       关闭线程时走 data:post.comments 循环。 -->
+                  <b:if cond='data:post.showThreadedComments'>
+                    <b:include data='post' name='threaded_comments'/>
+                  <b:else/>
+                    <b:include data='post' name='comment-list'/>
+                  </b:if>
+                </div>
+                <b:include data='post' name='comment-entry'/>
+                <b:if cond='data:post.commentSrc'>
+                  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+                </b:if>
+              </div>
+            </b:includable>
+
+            <!-- 新版 Blogger 引擎使用驼峰命名，保留别名以兼容内置默认调用 -->
+            <b:includable id='commentPicker' var='post'>
+              <b:include data='post' name='comment_picker'/>
+            </b:includable>
+
+            <!-- 线程评论容器：Blogger 服务端渲染的评论树，或由 commentSrc 脚本异步填充。
+                 表单由 comment_picker 统一调用 comment-entry，避免重复输出 iframe。 -->
+            <b:includable id='threaded_comments' var='post'>
+              <div class='comment-thread' id='comment-holder'><data:post.commentHtml/></div>
+            </b:includable>
+
+            <!-- 扁平评论入口（兼容旧模板按 name='comments' 调用） -->
+            <b:includable id='comments' var='post'>
+              <b:include data='post' name='comment-list'/>
+            </b:includable>
+
+            <!-- 评论列表：线程模式下 commentHtml 为空时的回退 -->
+            <b:includable id='comment-list' var='post'>
+              <div class='comments-list' expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+                <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+                  <b:loop values='data:post.comments' var='comment'>
+                    <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+                      <a expr:name='data:comment.anchorName'/>
+                      <b:if cond='data:blog.enabledCommentProfileImages'><data:comment.authorAvatarImage/></b:if>
+                      <b:if cond='data:comment.authorUrl'>
+                        <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
+                      <b:else/>
+                        <data:comment.author/>
+                      </b:if>
+                      <data:commentPostedByMsg/>
+                    </dt>
+                    <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+                      <b:if cond='data:comment.isDeleted'>
+                        <span class='deleted-comment'><data:comment.body/></span>
+                      <b:else/>
+                        <p><data:comment.body/></p>
+                      </b:if>
+                    </dd>
+                    <dd class='comment-footer'>
+                      <span class='comment-timestamp'>
+                        <a expr:href='data:comment.url' title='comment permalink'><data:comment.timestamp/></a>
+                        <b:include data='comment' name='commentDeleteIcon'/>
+                      </span>
+                    </dd>
+                  </b:loop>
+                </dl>
+              </div>
+              <b:if cond='data:post.commentPagingRequired'>
+                <span class='paging-control-container'>
+                  <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
+                  <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
+                  <span><data:post.commentRangeText/></span>
+                  <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
+                  <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
+                </span>
+              </b:if>
+            </b:includable>
+
+            <!-- 固定使用 Blogger 嵌入式评论框：不再依赖后台「评论位置」的
+                 embedCommentForm / allowNewComments 判断，避免设置成「整页」或
+                 「弹出式窗口」后文章下方连评论框都不出现。 -->
+            <b:includable id='comment-entry' var='post'>
+              <b:include data='post' name='comment-form'/>
+              <p class='comment-footer comment-alt'>
+                <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>在新页面发表评论</a>
+              </p>
+            </b:includable>
+
+            <!-- Blogger 原生评论框（iframe 表单） -->
+            <b:includable id='comment-form' var='post'>
+              <div class='comment-form'>
+                <a name='comment-form'/>
+                <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+                <p><data:blogCommentMessage/></p>
+                <data:blogTeamBlogMessage/>
+                <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+                <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+                <data:post.cmtfpIframe/>
+                <script type='text/javascript'>if (window.BLOG_CMT_createIframe) { BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;); }</script>
+              </div>
+            </b:includable>
+
+            <b:includable id='threaded-comment-form' var='post'>
+              <b:include data='post' name='comment-form'/>
+            </b:includable>
+
+            <b:includable id='commentDeleteIcon' var='comment'>
+              <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+                <a class='comment-delete' expr:href='data:comment.deleteUrl' title='删除评论'>删除</a>
+              </span>
+            </b:includable>
+
+            <!-- 列表页/文章页的评论数链接 -->
+            <b:includable id='comment_count_picker' var='post'>
+              <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:post.commentLabelFull/></a>
+            </b:includable>
+
+            <!-- Google+ 评论已下线，保留空 includable 以兼容 commentSource == 1 -->
+            <b:includable id='iframe_comments' var='post'></b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+
+      <aside id='aside-content'>
+        <div class='card-widget card-info'>
+          <div class='card-content'>
+            <div class='avatar' data-role='avatar'><span class='avatar-letter'>S</span></div>
+            <div class='name' data-role='author-name'><data:blog.title/></div>
+            <div class='desc' data-role='author-desc'></div>
+            <div class='social-icons' id='author-social'>
+              <a data-action='rss' expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' title='RSS'>RSS</a>
+              <a data-action='search' href='#search' title='搜索'>搜索</a>
+              <a data-action='theme' data-role='theme-toggle' href='#theme' title='切换深浅模式'>模式</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 站点信息按需求放在标签小工具上方 -->
+        <div class='card-widget' id='card-webinfo'>
+          <div class='card-head'><svg><use href='#i-info'/></svg>站点信息</div>
+          <div class='webinfo'>
+            <div class='webinfo-item'><div class='item-name'>文章总数</div><div class='item-count' data-stat='posts'>—</div></div>
+            <div class='webinfo-item'><div class='item-name'>运行天数</div><div class='item-count' data-stat='runtime'>—</div></div>
+            <div class='webinfo-item'><div class='item-name'>最后更新</div><div class='item-count' style='font-size:.85rem' data-stat='updated'>—</div></div>
+            <div class='webinfo-item'><div class='item-name'>当前主题</div><div class='item-count' style='font-size:.85rem'>Solitude</div></div>
+          </div>
+        </div>
+
+        <b:section class='solitude-sidebar' id='sidebar' showaddelement='yes'>
+          <b:widget id='Label1' locked='false' title='标签' type='Label'>
+            <b:includable id='main'>
+              <div class='card-widget card-tags'>
+                <div class='card-head'><svg><use href='#i-tag'/></svg><data:title/><a class='card-head-more' href='#aside-content'>全部</a></div>
+                <div class='card-tag-cloud'>
+                  <b:loop values='data:labels' var='label'>
+                    <a expr:href='data:label.url'><data:label.name/></a>
+                  </b:loop>
+                </div>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+        <!-- 侧栏顺序 信息卡 站点信息 标签 最新 文章目录
+             b:section id sidebar 仍开放 可在布局里添加更多小工具 -->
+        <div class='card-widget'>
+          <div class='card-head'><svg><use href='#i-clock'/></svg>最新</div>
+          <ul class='card-list' data-list='newest' id='solitude-newest'><li><div class='list-title'>正在加载…</div></li></ul>
+        </div>
+
+        <div class='card-widget card-toc' id='toc-card'>
+          <div class='card-head'><svg><use href='#i-list'/></svg>文章目录</div>
+          <ul class='toc-list' id='toc-list'><li class='toc-empty'>本文暂无目录</li></ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id='footer'>
+    <!-- Row 1: round social links (centre avatar removed; Solitude 3.0 footer_deal) -->
+    <div id='footer_deal'>
+      <a class='deal_link' expr:href='data:blog.homepageUrl' title='首页'><svg><use href='#i-home'/></svg></a>
+      <a class='deal_link' data-action='search' href='#search' title='站内搜索'><svg><use href='#i-search'/></svg></a>
+      <a class='deal_link' data-action='rss' expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' title='RSS'><svg><use href='#i-rss'/></svg></a>
+      <a class='deal_link' data-action='mail' data-role='mail-link' href='#mail' title='联系邮箱'><svg><use href='#i-mail'/></svg></a>
+      <a class='deal_link' href='https://github.com/everfu/hexo-theme-solitude' title='Solitude 原主题'><svg><use href='#i-github'/></svg></a>
+      <a class='deal_link' data-action='top' href='#top' title='回到顶部'><svg><use href='#i-top'/></svg></a>
+    </div>
+
+    <!-- Row 2: grouped link columns -->
+    <div id='st-footer'>
+      <div class='footer-group' data-group='导航'>
+        <h3 class='footer-title'>导航</h3>
+        <div class='footer-links'>
+          <a class='footer-item' expr:href='data:blog.homepageUrl' title='首页'>首页</a>
+          <a class='footer-item' data-action='about' href='#about' title='关于'>关于</a>
+          <a class='footer-item' href='#aside-content' title='标签云'>标签云</a>
+          <a class='footer-item' href='#recent-posts' title='文章列表'>文章列表</a>
+        </div>
+      </div>
+      <div class='footer-group' data-group='服务'>
+        <h3 class='footer-title'>服务</h3>
+        <div class='footer-links'>
+          <a class='footer-item' data-action='search' href='#search' title='站内搜索'>站内搜索</a>
+          <a class='footer-item' data-action='rss' expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' title='RSS 订阅'>RSS 订阅</a>
+          <a class='footer-item' href='#footer' title='站点信息'>站点信息</a>
+          <a class='footer-item' data-action='top' href='#top' title='回到顶部'>回到顶部</a>
+        </div>
+      </div>
+      <div class='footer-group' data-group='关于'>
+        <h3 class='footer-title'>关于主题</h3>
+        <div class='footer-links'>
+          <a class='footer-item' href='https://github.com/everfu/hexo-theme-solitude' title='Solitude 原主题'>Solitude 原主题</a>
+          <a class='footer-item' href='https://solitude.js.org/' title='主题文档'>主题文档</a>
+          <a class='footer-item' href='https://www.blogger.com/' title='Blogger'>Blogger 平台</a>
+        </div>
+      </div>
+      <div class='footer-group' id='footer-friends-group'>
+        <div class='footer-title-group'>
+          <h3 class='footer-title'>友链</h3>
+          <button class='random-friends-btn' data-action='shuffle-friends' title='换一批友链' type='button'><svg><use href='#i-refresh'/></svg></button>
+        </div>
+        <div class='footer-links' id='friend-links-in-footer'></div>
+      </div>
+    </div>
+
+    <!-- Row 3: copyright bar -->
+    <div id='footer-bar'>
+      <div class='footer-bar-links'>
+        <div class='footer-bar-left'>
+          <div class='copyright'>© <span data-role='footer-year'>2026</span> By
+            <a class='footer-bar-link' expr:href='data:blog.homepageUrl'>
+              <span class='author-avatar' data-role='footer-avatar'><span class='avatar-letter' data-role='mini-avatar'>S</span></span>
+              <span data-role='footer-author'><data:blog.title/></span>
+            </a>
+          </div>
+          <div class='beian-group'>
+            <span id='footer-beian' style='display:contents'></span>
+          </div>
+        </div>
+        <div class='footer-bar-right'>
+          <a class='footer-bar-link' data-action='rss' expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' title='RSS'>RSS</a>
+          <a class='footer-bar-link' data-action='about' href='#about' title='关于'>关于</a>
+          <a class='footer-bar-link' href='#footer' title='站点信息'>站点信息</a>
+          <span id='footer-right-extra' style='display:contents'></span>
+        </div>
+      </div>
+    </div>
+
+    <b:section class='footer' id='footer-widgets' preferred='yes' showaddelement='no'>
+      <b:widget id='Attribution1' locked='true' title='' type='Attribution'/>
+    </b:section>
+  </footer>
+</div>
+
+<div id='rightside'>
+  <a class='rightside-btn' data-action='toc' href='#toc-card' title='文章目录'><svg><use href='#i-list'/></svg></a>
+  <a class='rightside-btn' data-action='theme' data-role='theme-toggle' href='#theme' title='切换深浅模式'>
+    <svg class='theme-icon-moon'><use href='#i-moon'/></svg>
+    <svg class='theme-icon-sun' style='display:none'><use href='#i-sun'/></svg>
+  </a>
+  <a class='rightside-btn' data-action='search' href='#search' title='搜索'><svg><use href='#i-search'/></svg></a>
+  <a class='rightside-btn' data-action='top' href='#top' title='回到顶部'><svg><use href='#i-top'/></svg></a>
+</div>
+
+<div id='mobile-menu'>
+  <div class='drawer'>
+    <div class='drawer-title'>导航菜单 <button class='nav-btn' data-action='close-menu' type='button'><svg><use href='#i-close'/></svg></button></div>
+    <a expr:href='data:blog.homepageUrl'>首页</a>
+    <a data-action='about' href='#about'>关于</a>
+    <a href='#aside-content'>标签云</a>
+    <a href='#footer'>站点信息</a>
+    <a data-action='rss' expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;'>RSS 订阅</a>
+  </div>
+</div>
+
+<div id='search-mask'>
+  <div class='search-panel'>
+    <button class='search-close' data-action='close-search' type='button'>×</button>
+    <h3 style='margin-top:0'>站内搜索</h3>
+    <form expr:action='data:blog.homepageUrl + &quot;search&quot;' method='get'>
+      <input name='q' placeholder='输入关键词，按回车搜索' type='text'/>
+      <button type='submit'>搜索</button>
+    </form>
+    <div class='search-hint'>提示：按 / 快速打开搜索，按 Esc 关闭。</div>
+  </div>
+</div>
+
+<!-- RSS 订阅 / 联系邮箱弹层：不直接打开 Atom XML，避免出现乱码源码页 -->
+<div id='solitude-dialog'>
+  <div class='dialog-panel'>
+    <button class='dialog-close' data-action='close-dialog' type='button'>×</button>
+    <h3 data-role='dialog-title'>RSS 订阅</h3>
+    <p data-role='dialog-text'></p>
+    <div class='dialog-value-row' data-role='dialog-value-row'>
+      <input data-role='dialog-value' readonly='readonly' type='text'/>
+      <button data-action='copy-dialog' type='button'>复制地址</button>
+    </div>
+    <div class='dialog-hint'>提示：按 Esc 或点击空白处关闭。</div>
+  </div>
+</div>
+
+<!-- 关于弹窗：仿参考站底部弹层，遮罩点击 / × / Esc 均可关闭 -->
+<div id='solitude-about'>
+  <div class='about-panel' aria-labelledby='about-title' aria-modal='true' role='dialog'>
+    <div class='about-header'>
+      <h3 data-role='about-title' id='about-title'>关于我</h3>
+      <button aria-label='关闭弹窗' class='dialog-close' data-action='close-about' type='button'>×</button>
+    </div>
+    <div class='about-body'>
+      <div class='about-profile'>
+        <div class='about-avatar' data-role='about-avatar'><span class='avatar-letter'>S</span></div>
+        <div class='about-name' data-role='about-name'><data:blog.title/></div>
+        <div class='about-desc' data-role='about-desc'></div>
+      </div>
+      <div class='about-text' data-role='about-text'></div>
+      <div class='about-links' data-role='about-links'></div>
+      <div class='dialog-hint'>提示：按 Esc 或点击空白处关闭。</div>
+    </div>
+  </div>
+</div>
+
+<div id='solitude-lightbox'><img alt=''/></div>
+
+<script>//<![CDATA[
+/* =============================================================
+   Solitude for Blogger - runtime behaviour
+   All site-specific options live in SOLITUDE_CONFIG below.
+   ============================================================= */
+(function () {
+  'use strict';
+
+  /* -----------------------------------------------------------
+     1. Configuration - edit this block to customise the blog
+     ----------------------------------------------------------- */
+  var CFG = window.SOLITUDE_CONFIG || {};
+  var defaults = {
+    siteSince: '2023-04-20',          // 建站日期，用于计算运行天数
+    authorName: '',                   // 留空则使用 Blogger 博客标题
+    authorDesc: '',                   // 留空自动使用后台「设置 → 基本 → 说明」
+    avatar: '',                       // 手动头像 URL（最低优先级的回退）
+    useFaviconAvatar: true,           // 优先用后台「布局 → 网站图标」
+    useProfileAvatar: true,           // 次选：模板渲染的后台个人资料头像（data:photo.url / authorPhoto.url）
+    heroTitle: '',                    // 留空使用博客标题
+    heroDesc: '',                     // 留空自动使用后台「设置 → 基本 → 说明」
+    heroKicker: '欢迎来到我的小站',
+    defaultCover: '',                 // 无图文章的默认封面 URL
+    highlightTags: [],                // 高亮标签，例如 ['Hexo', '随笔']
+    newestCount: 5,
+    feedMax: 12,
+    blogUrl: '',                      // 留空时自动使用当前站点根路径
+    footerStartYear: '',              // 版权起始年，留空则取 siteSince 的年份
+    footerSocial: null,               // 覆盖圆形社交按钮，见下方 renderFooter
+    footerGroups: null,               // 覆盖页脚链接分组
+    friendLinks: [                    // 随机友链池；默认避免 Google/Blogger 等国内打不开的站点
+      { name: 'Solitude 主题', url: 'https://solitude.js.org/' },
+      { name: '主题仓库', url: 'https://github.com/everfu/hexo-theme-solitude' },
+      { name: '站内搜索', url: '#search', action: 'search' },
+      { name: 'RSS 订阅', url: '#', action: 'rss' }
+    ],
+    friendCount: 4,
+    feedTimeout: 6000,                // Feed 超时（毫秒）；超时立即回退，避免国内网络下长时间挂起
+    email: '',                        // 页脚「邮箱」按钮的 mailto 地址
+    feedUrl: '',                      // 留空自动使用 siteRoot() + feeds/posts/default?alt=rss
+    footerBeian: [],                  // 备案信息 [{name:'京ICP备xxxx号', url:'...'}]
+    footerRight: []                   // 版权栏右侧额外链接 [{name:'RSS', url:'...'}]
+  };
+  Object.keys(defaults).forEach(function (k) {
+    if (typeof CFG[k] === 'undefined') { CFG[k] = defaults[k]; }
+  });
+  window.SOLITUDE_CONFIG = CFG;
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var root = document.documentElement;
+
+  function siteRoot() {
+    if (CFG.blogUrl) { return CFG.blogUrl.replace(/\/?$/, '/'); }
+    var meta = document.getElementById('solitude-meta');
+    var url = meta && meta.getAttribute('data-blog-url');
+    if (url) { return url.replace(/\/?$/, '/'); }
+    return location.protocol === 'file:' ? '' : location.origin + '/';
+  }
+
+  function setText(sel, value) {
+    if (!value) { return; }
+    $$(sel).forEach(function (n) { n.textContent = value; });
+  }
+
+  /* Fill all text that can be overridden from SOLITUDE_CONFIG. */
+  function applyConfig() {
+    var meta = document.getElementById('solitude-meta');
+    var blogTitle = (meta && meta.getAttribute('data-blog-title')) || '';
+    applyBackendDesc(readBackendDesc());
+    setText('[data-role="hero-title"]', CFG.heroTitle);
+    setText('[data-role="hero-kicker"]', CFG.heroKicker);
+    setText('[data-role="author-name"]', CFG.authorName);
+    setText('[data-role="footer-author"]', CFG.authorName);
+    setText('[data-role="about-name"]', CFG.authorName);
+    var nowYear = new Date().getFullYear();
+    var sinceYear = parseInt(String(CFG.footerStartYear || CFG.siteSince).slice(0, 4), 10);
+    setText('[data-role="footer-year"]',
+      (sinceYear && sinceYear !== nowYear) ? sinceYear + ' - ' + nowYear : String(nowYear));
+    var initial = avatarInitial();
+    var badge = $('.site-badge');
+    if (badge && blogTitle) { badge.textContent = blogTitle.trim().charAt(0).toUpperCase(); }
+    var cardBox = $('[data-role="avatar"]');
+    var cardLetter = cardBox && $('.avatar-letter', cardBox);
+    if (cardLetter) { cardLetter.textContent = initial; }
+    var miniLetter = $('[data-role="mini-avatar"]');
+    if (miniLetter) { miniLetter.textContent = initial; }
+    var aboutLetter = $('.about-avatar .avatar-letter');
+    if (aboutLetter) { aboutLetter.textContent = initial; }
+    renderAvatars(collectAvatarSources());
+  }
+
+  function avatarInitial() {
+    var meta = document.getElementById('solitude-meta');
+    var blogTitle = (meta && meta.getAttribute('data-blog-title')) || '';
+    return (CFG.authorName || blogTitle || 'S').trim().charAt(0).toUpperCase();
+  }
+
+  /* 一个头像、两处显示：侧栏信息卡、页脚版权条小头像（页脚中间的大头像已删除）。
+     优先级：后台「网站图标」> 后台「个人资料头像」> 手动 avatar > 博客名首字。
+     Blogger 把「布局 → 网站图标」上传的图标放在博客根 /favicon.ico；
+     模板已用 data:blog.homepageUrl 拼出，head 里的 link[rel~=icon] 也一并收集。
+     任一地址加载失败会自动尝试下一个，全部失败才回到首字占位。 */
+  function isDefaultFavicon(url) {
+    return /blogger\.com\/favicon|gstatic\.com\/.*favicon|blogblog\.com\/.*favicon/i.test(url || '');
+  }
+
+  function collectAvatarSources() {
+    var list = [];
+    function add(u) {
+      u = String(u || '').trim();
+      if (u && list.indexOf(u) < 0) { list.push(u); }
+    }
+    if (CFG.useFaviconAvatar) {
+      var icon = $('#solitude-backend-data [data-role="backend-favicon"]');
+      if (icon) { add(icon.getAttribute('src')); }
+      $$('link[rel~="icon"]').forEach(function (l) {
+        var href = l.getAttribute('href') || '';
+        if (!isDefaultFavicon(href)) { add(href); }
+      });
+      var rootUrl = siteRoot();
+      if (rootUrl && rootUrl.indexOf('http') === 0) { add(rootUrl + 'favicon.ico'); }
+    }
+    if (CFG.useProfileAvatar) {
+      $$('#solitude-backend-data [data-role="backend-avatar"], .solitude-author-photo').forEach(function (n) {
+        var src = n.getAttribute('src') || '';
+        if (!isPlaceholderAvatar(src)) { add(src); }
+      });
+    }
+    add(CFG.avatar);
+    return list;
+  }
+
+  function renderAvatars(chain) {
+    if (!chain.length) { return; }  // 保留模板里的首字占位
+    var meta = document.getElementById('solitude-meta');
+    var alt = CFG.authorName || (meta && meta.getAttribute('data-blog-title')) || '';
+    var initial = avatarInitial();
+    $$('[data-role="avatar"], [data-role="footer-avatar"], [data-role="about-avatar"]').forEach(function (box) {
+      box.innerHTML = '';
+      var img = document.createElement('img');
+      img.alt = alt;
+      img.setAttribute('data-avatar-index', '0');
+      img.addEventListener('error', function () {
+        var next = parseInt(img.getAttribute('data-avatar-index'), 10) + 1;
+        if (next < chain.length) {
+          img.setAttribute('data-avatar-index', String(next));
+          img.src = chain[next];
+        } else {
+          box.innerHTML = '<span class="avatar-letter">' + esc(initial) + '</span>';
+        }
+      });
+      img.src = chain[0];
+      box.appendChild(img);
+    });
+  }
+
+  /* 后台「设置 → 基本 → 说明」只由 Header 小工具的 data:description 渲染。
+     Blogger 官方 Layouts Data Tags 中 Page Header 仅有 title / description 两项，
+     全局 blog 数据里没有 description 字段；data:blog.metaDescription 属于
+     「搜索偏好 → 元标记」的搜索说明，文章页还会变成该文章的搜索说明，故不采用。 */
+  function readBackendDesc() {
+    var node = $('#solitude-backend-data [data-role="backend-desc"]');
+    return node ? (node.textContent || '').trim() : '';
+  }
+
+  /* 配置优先，留空则用后台说明；后台也没填时隐藏占位，避免留下空白间距。 */
+  function applyBackendDesc(backendDesc) {
+    var desc = CFG.authorDesc || backendDesc;
+    setText('[data-role="hero-desc"]', CFG.heroDesc || backendDesc);
+    setText('[data-role="author-desc"]', desc);
+    setText('[data-role="about-desc"]', desc);
+    $$('[data-role="hero-desc"], [data-role="author-desc"], [data-role="about-desc"]').forEach(function (n) {
+      if (!(n.textContent || '').trim()) { n.style.display = 'none'; }
+    });
+  }
+
+  /* 后台个人资料头像节点仍保留在模板里，作为网站图标加载失败时的回退
+     （见 collectAvatarSources）。Blogger 未上传照片时会返回这些占位图，跳过。 */
+  function isPlaceholderAvatar(src) {
+    return !src || /blogger\.com\/img\/(blank|anon|b16|blogger_logo)|img1\.blogblog\.com\/img\/|resources\.blogblog\.com\/img\/(blank|anon)/i.test(src);
+  }
+
+  /* Derive the category bar from the real Label widget links. */
+  function fillCategoryBar() {
+    var box = $('#cat-links');
+    if (!box) { return; }
+    var links = $$('.card-tag-cloud a').slice(0, 5);
+    if (!links.length) { return; }
+    box.innerHTML = links.map(function (a) {
+      return '<a href="' + esc(a.getAttribute('href')) + '">' + esc(a.textContent.trim()) + '</a>';
+    }).join('');
+  }
+
+  function fillEmptyState() {
+    var box = $('#recent-posts');
+    if (!box || $('.recent-post-item', box)) { return; }
+    box.innerHTML = '<div class="empty-card"><div class="empty-code">404</div>' +
+      '<h2>这里空空如也</h2><p>没有找到符合条件的文章，换个关键词或回到首页看看吧。</p>' +
+      '<a class="hero-btn" href="' + esc(siteRoot()) + '">返回首页</a></div>';
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function bigThumb(url) {
+    if (!url) { return ''; }
+    return String(url)
+      .replace(/\/s\d+(-[a-z]+)?\//i, '/s800/')
+      .replace(/\/s\d+(-[a-z]+)?$/, '/s800')
+      .replace(/=s\d+(-[a-z]+)?$/i, '=s800');
+  }
+
+  function normalUrl(u) {
+    return String(u || '').split('#')[0].split('?')[0].replace(/\/$/, '').toLowerCase();
+  }
+
+  function fmtDate(iso) {
+    if (!iso) { return ''; }
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) { return ''; }
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+
+  function runtimeDays() {
+    var start = new Date(CFG.siteSince + 'T00:00:00');
+    if (isNaN(start.getTime())) { return '—'; }
+    return Math.max(0, Math.floor((Date.now() - start.getTime()) / 86400000));
+  }
+
+  /* -----------------------------------------------------------
+     2. Theme (light / dark) with localStorage + system fallback
+     ----------------------------------------------------------- */
+  var THEME_KEY = 'solitude-blogger-theme';
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    try { localStorage.setItem(THEME_KEY, t === 'dark' ? 'dark' : 'light'); } catch (e) {}
+    updateThemeIcon();
+  }
+  function toggleTheme() {
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+  function updateThemeIcon() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    $$('[data-role="theme-toggle"]').forEach(function (btn) {
+      btn.setAttribute('title', dark ? '切换到浅色模式' : '切换到深色模式');
+      btn.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
+    });
+    $$('.theme-icon-sun').forEach(function (el) { el.style.display = dark ? '' : 'none'; });
+    $$('.theme-icon-moon').forEach(function (el) { el.style.display = dark ? 'none' : ''; });
+  }
+  window.solitudeToggleTheme = toggleTheme;
+  window.solitudeApplyTheme = applyTheme;
+
+  /* -----------------------------------------------------------
+     3. Navigation, scroll progress, back-to-top
+     ----------------------------------------------------------- */
+  function initNav() {
+    var nav = $('#nav');
+    var rightside = $('#rightside');
+    var progress = $('#read-progress');
+    var lastY = 0;
+    function onScroll() {
+      var y = window.pageYOffset || document.body.scrollTop || 0;
+      if (nav) {
+        nav.classList.toggle('scrolled', y > 20);
+        if (y > 260 && y > lastY + 6) { nav.classList.add('nav-hidden'); }
+        else if (y < lastY - 6 || y < 120) { nav.classList.remove('nav-hidden'); }
+      }
+      if (rightside) { rightside.classList.toggle('show', y > 300); }
+      if (progress) {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (h > 0 ? Math.min(100, (y / h) * 100) : 0) + '%';
+      }
+      lastY = y;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  function initActions() {
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('[data-action]') : null;
+      var a = el ? el.getAttribute('data-action') : '';
+      if (a && a !== 'about') { closeAboutDialog(); }
+      if (a === 'about') { e.preventDefault(); openAboutDialog(); }
+      if (a === 'close-about') { e.preventDefault(); closeAboutDialog(); }
+      if (a === 'theme') { e.preventDefault(); toggleTheme(); }
+      if (a === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      if (a === 'search') { e.preventDefault(); openSearch(); }
+      if (a === 'menu') { e.preventDefault(); toggleMenu(); }
+      if (a === 'close-menu') { e.preventDefault(); toggleMenu(); }
+      if (a === 'close-search') { e.preventDefault(); closeSearch(); }
+      if (a === 'shuffle-friends') { e.preventDefault(); renderFriends(); }
+      if (a === 'rss') { e.preventDefault(); openRssDialog(); }
+      if (a === 'mail') { e.preventDefault(); openMailDialog(); }
+      if (a === 'close-dialog') { e.preventDefault(); closeDialog(); }
+      if (a === 'copy-dialog') { e.preventDefault(); copyDialogValue(el); }
+      if (a === 'toc') {
+        e.preventDefault();
+        var card = $('#toc-card');
+        if (card) { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      }
+      if (!el) {
+        // 兜底：任何指向 Atom Feed 的链接都不直接跳转，避免出现 XML 乱码页。
+        var feedLink = e.target.closest ? e.target.closest('a[href*="feeds/posts/default"]') : null;
+        if (feedLink) { e.preventDefault(); openRssDialog(); }
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeSearch(); toggleMenu(false); closeLightbox(); closeDialog(); closeAboutDialog(); }
+      if (e.key === '/' && !/input|textarea/i.test(document.activeElement.tagName)) {
+        e.preventDefault(); openSearch();
+      }
+    });
+  }
+
+  /* -----------------------------------------------------------
+     4. Mobile menu / search overlay / lightbox
+     ----------------------------------------------------------- */
+  function toggleMenu(force) {
+    var m = $('#mobile-menu');
+    if (!m) { return; }
+    var open = typeof force === 'boolean' ? force : !m.classList.contains('open');
+    m.classList.toggle('open', open);
+  }
+  function openSearch() {
+    var m = $('#search-mask');
+    if (!m) { return; }
+    m.classList.add('open');
+    var i = $('#search-mask input[name="q"]');
+    if (i) { setTimeout(function () { i.focus(); }, 60); }
+  }
+  function closeSearch() {
+    var m = $('#search-mask');
+    if (m) { m.classList.remove('open'); }
+  }
+  function closeLightbox() {
+    var l = $('#solitude-lightbox');
+    if (l) { l.classList.remove('open'); }
+  }
+  function initOverlays() {
+    var menu = $('#mobile-menu');
+    if (menu) {
+      menu.addEventListener('click', function (e) { if (e.target === menu) { toggleMenu(false); } });
+    }
+    var mask = $('#search-mask');
+    if (mask) {
+      mask.addEventListener('click', function (e) { if (e.target === mask) { closeSearch(); } });
+      var form = $('#search-mask form');
+      if (form && !form.getAttribute('action')) {
+        form.setAttribute('action', siteRoot() + 'search');
+      }
+    }
+    var dialog = $('#solitude-dialog');
+    if (dialog) {
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) { closeDialog(); } });
+    }
+    var aboutMask = $('#solitude-about');
+    if (aboutMask) {
+      aboutMask.addEventListener('click', function (e) { if (e.target === aboutMask) { closeAboutDialog(); } });
+    }
+    var catForm = $('#category-search-form');
+    if (catForm && !catForm.getAttribute('action')) {
+      catForm.setAttribute('action', siteRoot() + 'search');
+    }
+    var lightbox = $('#solitude-lightbox');
+    if (lightbox) {
+      lightbox.addEventListener('click', closeLightbox);
+      $$('.article-container img').forEach(function (img) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function () {
+          var target = $('#solitude-lightbox img');
+          if (target) { target.src = img.src; target.alt = img.alt || ''; }
+          lightbox.classList.add('open');
+        });
+      });
+    }
+  }
+
+  /* -----------------------------------------------------------
+     5. Table of contents for post pages
+     ----------------------------------------------------------- */
+  function initToc() {
+    var card = $('#toc-card');
+    if (card && !$('.post-main')) { card.style.display = 'none'; }
+    var article = $('.article-container');
+    var list = $('#toc-list');
+    if (!article || !list) { return; }
+    var heads = $$('h2, h3', article);
+    if (!heads.length) {
+      list.innerHTML = '<li class="toc-empty">本文暂无目录</li>';
+      return;
+    }
+    var html = '';
+    heads.forEach(function (h, i) {
+      if (!h.id) { h.id = 'solitude-head-' + i; }
+      var cls = h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : 'toc-h2';
+      html += '<li class="' + cls + '"><a href="#' + h.id + '" data-target="' + h.id + '">' +
+        esc(h.textContent) + '</a></li>';
+    });
+    list.innerHTML = html;
+    var links = $$('a', list);
+    if (!('IntersectionObserver' in window)) { return; }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) { return; }
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('data-target') === en.target.id); });
+      });
+    }, { rootMargin: '-90px 0px -70% 0px' });
+    heads.forEach(function (h) { obs.observe(h); });
+  }
+
+  /* -----------------------------------------------------------
+     6. Blogger feed: covers, newest posts, site info
+     ----------------------------------------------------------- */
+  function applyFallbackCover(node, title) {
+    if (!node) { return; }
+    if (CFG.defaultCover) {
+      node.innerHTML = '<img src="' + esc(CFG.defaultCover) + '" alt="' + esc(title) + '" loading="lazy"/>';
+      return;
+    }
+    var ch = (title || 'S').trim().charAt(0);
+    node.innerHTML = '<div class="cover-fallback"><span>' + esc(ch) + '</span></div>';
+  }
+
+  function fillCovers(entries) {
+    var cards = $$('[data-href]');
+    var byUrl = {};
+    var byTitle = {};
+    entries.forEach(function (e) {
+      var u = e.link || '';
+      var t = e.title || '';
+      var thumb = bigThumb(e.thumb);
+      if (!thumb && CFG.defaultCover) { thumb = CFG.defaultCover; }
+      if (!thumb) { return; }
+      if (u) { byUrl[normalUrl(u)] = thumb; }
+      if (t) { byTitle[t.trim()] = thumb; }
+    });
+    cards.forEach(function (card) {
+      var cover = $('.post_cover', card) || $('.post-cover-img', card);
+      if (!cover) { return; }
+      if ($('img', cover)) { return; }
+      var title = $('.article-title', card) || $('.post-title', card);
+      var titleText = title ? title.textContent.trim() : '';
+      var key = normalUrl(card.getAttribute('data-href'));
+      var thumb = byUrl[key] || byTitle[titleText];
+      if (thumb) {
+        var img = document.createElement('img');
+        img.src = thumb;
+        img.alt = titleText;
+        img.loading = 'lazy';
+        img.addEventListener('error', function () { applyFallbackCover(cover, titleText); }, { once: true });
+        cover.innerHTML = '';
+        cover.appendChild(img);
+      } else {
+        applyFallbackCover(cover, titleText);
+      }
+    });
+  }
+
+  function fillNewest(entries) {
+    var boxes = $$('[data-list="newest"]');
+    if (!boxes.length) { return; }
+    var list = entries.slice(0, CFG.newestCount);
+    if (!list.length) { return; }
+    var html = list.map(function (e) {
+      var thumb = bigThumb(e.thumb) || CFG.defaultCover;
+      var img = thumb
+        ? '<img src="' + esc(thumb) + '" alt="" loading="lazy"/>'
+        : '<div class="thumb-fallback"></div>';
+      return '<li><a class="list-thumb" href="' + esc(e.link) + '">' + img + '</a>' +
+        '<div><a class="list-title" href="' + esc(e.link) + '">' + esc(e.title) + '</a>' +
+        '<div class="list-date">' + esc(fmtDate(e.published)) + '</div></div></li>';
+    }).join('');
+    boxes.forEach(function (box) { box.innerHTML = html; });
+  }
+
+  function fillSideCards(entries) {
+    var total = window.SOLITUDE_FEED_TOTAL || 0;
+    $$('[data-stat="posts"]').forEach(function (n) { n.textContent = total || entries.length || '—'; });
+    $$('[data-stat="runtime"]').forEach(function (n) { n.textContent = runtimeDays(); });
+    $$('[data-stat="updated"]').forEach(function (n) {
+      n.textContent = entries.length ? fmtDate(entries[0].published) : '—';
+    });
+    var last = $('#hero-latest');
+    if (last && entries.length) {
+      last.innerHTML = '<div class="side-label">最新文章</div>' +
+        '<a class="side-title" href="' + esc(entries[0].link) + '">' + esc(entries[0].title) + '</a>' +
+        '<div class="side-meta">' + esc(fmtDate(entries[0].published)) + '</div>';
+    }
+  }
+
+  function highlightTags() {
+    if (!CFG.highlightTags || !CFG.highlightTags.length) { return; }
+    $$('.card-tag-cloud a').forEach(function (a) {
+      if (CFG.highlightTags.indexOf(a.textContent.replace(/\d+/g, '').trim()) >= 0) {
+        a.classList.add('highlight');
+      }
+    });
+  }
+
+  /* -----------------------------------------------------------
+     6. Footer: round social shortcuts, link groups, random friends
+     ----------------------------------------------------------- */
+  var FOOTER_ICONS = {
+    home: 'i-home', mail: 'i-mail', rss: 'i-rss', github: 'i-github',
+    x: 'i-x', twitter: 'i-x', telegram: 'i-telegram', search: 'i-search',
+    tag: 'i-tag', info: 'i-info', user: 'i-user', star: 'i-star',
+    top: 'i-top', link: 'i-link', clock: 'i-clock', list: 'i-list',
+    refresh: 'i-refresh'
+  };
+  function iconId(name) {
+    var key = String(name || '').replace(/^i-/, '').toLowerCase();
+    return FOOTER_ICONS[key] || 'i-info';
+  }
+  function footerLink(item, cls) {
+    var a = document.createElement('a');
+    a.className = cls;
+    a.setAttribute('href', item.url || '#');
+    a.setAttribute('title', item.name || item.title || '');
+    if (item.action) { a.setAttribute('data-action', item.action); }
+    if (item.target) { a.setAttribute('target', item.target); a.setAttribute('rel', 'noopener'); }
+    a.textContent = item.name || item.title || '';
+    return a;
+  }
+  function renderSocial() {
+    if (!Array.isArray(CFG.footerSocial)) { return; }
+    var deal = $('#footer_deal');
+    if (!deal) { return; }
+    $$('.deal_link', deal).forEach(function (n) { n.parentNode.removeChild(n); });
+    CFG.footerSocial.forEach(function (item) {
+      var a = document.createElement('a');
+      a.className = 'deal_link';
+      a.setAttribute('href', item.url || '#');
+      a.setAttribute('title', item.name || item.title || '');
+      if (item.action) { a.setAttribute('data-action', item.action); }
+      if (item.target) { a.setAttribute('target', item.target); a.setAttribute('rel', 'noopener'); }
+      a.innerHTML = '<svg><use href="#' + iconId(item.icon) + '"/></svg>';
+      deal.appendChild(a);
+    });
+  }
+  function renderGroups() {
+    if (!Array.isArray(CFG.footerGroups)) { return; }
+    var box = $('#st-footer');
+    if (!box) { return; }
+    $$('.footer-group[data-group]', box).forEach(function (n) { n.parentNode.removeChild(n); });
+    var friends = $('#footer-friends-group');
+    CFG.footerGroups.forEach(function (g) {
+      var div = document.createElement('div');
+      div.className = 'footer-group';
+      div.setAttribute('data-group', g.title || '');
+      var h = document.createElement('h3');
+      h.className = 'footer-title';
+      h.textContent = g.title || '';
+      var links = document.createElement('div');
+      links.className = 'footer-links';
+      (g.links || []).forEach(function (item) { links.appendChild(footerLink(item, 'footer-item')); });
+      div.appendChild(h);
+      div.appendChild(links);
+      box.insertBefore(div, friends);
+    });
+  }
+  function shuffled(list) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function renderFriends() {
+    var box = $('#friend-links-in-footer');
+    if (!box) { return; }
+    var group = $('#footer-friends-group');
+    var pool = Array.isArray(CFG.friendLinks) ? CFG.friendLinks : [];
+    if (!pool.length) { if (group) { group.style.display = 'none'; } return; }
+    if (group) { group.style.display = ''; }
+    box.innerHTML = '';
+    var count = Math.max(1, parseInt(CFG.friendCount, 10) || 4);
+    shuffled(pool).slice(0, count).forEach(function (item) {
+      box.appendChild(footerLink(item, 'footer-item'));
+    });
+  }
+  function renderFooterBarExtras() {
+    var beian = $('#footer-beian');
+    if (beian && Array.isArray(CFG.footerBeian)) {
+      beian.innerHTML = '';
+      CFG.footerBeian.forEach(function (item) {
+        beian.appendChild(footerLink(item, 'footer-bar-link'));
+      });
+    }
+    var right = $('#footer-right-extra');
+    if (right && Array.isArray(CFG.footerRight)) {
+      right.innerHTML = '';
+      CFG.footerRight.forEach(function (item) {
+        right.appendChild(footerLink(item, 'footer-bar-link'));
+      });
+    }
+  }
+  function renderFooter() {
+    renderSocial();
+    renderGroups();
+    renderFriends();
+    renderFooterBarExtras();
+  }
+
+  /* -----------------------------------------------------------
+     6b. RSS 订阅 / 联系邮箱弹层
+         Blogger 的 /feeds/posts/default 是 Atom XML，浏览器直接打开
+         只会显示 XML 源码（中文常被当成乱码）。所有订阅入口统一拦截，
+         改为展示可直接复制的 RSS 2.0 地址（?alt=rss，UTF-8）。
+     ----------------------------------------------------------- */
+  function feedAddress() {
+    if (CFG.feedUrl) { return String(CFG.feedUrl); }
+    return siteRoot() + 'feeds/posts/default?alt=rss';
+  }
+
+  function openDialog(title, text, value, copyLabel) {
+    var mask = $('#solitude-dialog');
+    if (!mask) { return; }
+    var h = $('[data-role="dialog-title"]', mask);
+    var p = $('[data-role="dialog-text"]', mask);
+    var row = $('[data-role="dialog-value-row"]', mask);
+    var input = $('[data-role="dialog-value"]', mask);
+    var btn = $('[data-action="copy-dialog"]', mask);
+    if (h) { h.textContent = title; }
+    if (p) { p.textContent = text; }
+    if (row) { row.style.display = value ? '' : 'none'; }
+    if (input) { input.value = value || ''; }
+    if (btn) {
+      btn.textContent = copyLabel || '复制地址';
+      btn.setAttribute('data-copy-value', value || '');
+    }
+    mask.classList.add('open');
+  }
+  function closeDialog() {
+    var mask = $('#solitude-dialog');
+    if (mask) { mask.classList.remove('open'); }
+  }
+
+  /* -----------------------------------------------------------
+     关于弹窗：仿参考站底部弹层（模糊遮罩 + 彩色顶边 + 可滚动正文）。
+     内容来自 SOLITUDE_CONFIG.about；头像、名称、说明复用后台数据。
+     ----------------------------------------------------------- */
+  var ABOUT_FALLBACK = {
+    title: '关于我',
+    paragraphs: [
+      '你好，欢迎来到我的小站。',
+      '这里记录一些工具、资源和日常折腾的笔记。',
+      '有建议可以通过下面的方式联系我。'
+    ],
+    links: [
+      { name: '首页', url: '/' },
+      { name: 'RSS 订阅', url: '#', action: 'rss' },
+      { name: '站内搜索', url: '#search', action: 'search' }
+    ]
+  };
+
+  function aboutHref(u) {
+    u = String(u || '#');
+    if (/^(https?:|mailto:|#|\/)/i.test(u)) { return u; }
+    return siteRoot() + u;
+  }
+
+  function renderAbout() {
+    var mask = $('#solitude-about');
+    if (!mask) { return; }
+    var about = (CFG.about && typeof CFG.about === 'object') ? CFG.about : {};
+    var title = $('[data-role="about-title"]', mask);
+    if (title) { title.textContent = about.title || ABOUT_FALLBACK.title; }
+    var textBox = $('[data-role="about-text"]', mask);
+    if (textBox) {
+      var lines = Array.isArray(about.paragraphs) ? about.paragraphs : ABOUT_FALLBACK.paragraphs;
+      textBox.innerHTML = lines.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+    }
+    var linksBox = $('[data-role="about-links"]', mask);
+    if (linksBox) {
+      linksBox.innerHTML = '';
+      var items = (Array.isArray(about.links) ? about.links : ABOUT_FALLBACK.links).slice();
+      if (CFG.email) { items.push({ name: '邮箱', url: 'mailto:' + String(CFG.email).trim() }); }
+      items.forEach(function (item) {
+        linksBox.appendChild(footerLink({
+          name: item.name,
+          url: aboutHref(item.url),
+          action: item.action,
+          target: item.target
+        }, 'about-link'));
+      });
+    }
+  }
+
+  function openAboutDialog() {
+    renderAbout();
+    var mask = $('#solitude-about');
+    if (mask) { mask.classList.add('open'); }
+  }
+  function closeAboutDialog() {
+    var mask = $('#solitude-about');
+    if (mask) { mask.classList.remove('open'); }
+  }
+
+  function openRssDialog() {
+    openDialog('RSS 订阅',
+      '把下面的订阅地址粘贴到任意 RSS 阅读器即可订阅本站更新。浏览器直接打开只会看到 XML 源码（中文显示成乱码属正常现象），请不要直接打开。',
+      feedAddress(), '复制订阅地址');
+  }
+  function openMailDialog() {
+    openDialog('联系邮箱',
+      '还没设置邮箱地址。请在主题的 SOLITUDE_CONFIG 里给 email 填上你的邮箱，保存后这个按钮会直接打开邮件客户端。',
+      '', '复制地址');
+  }
+  function initMailLink() {
+    var addr = String(CFG.email || '').trim();
+    $$('[data-role="mail-link"]').forEach(function (a) {
+      if (addr) {
+        a.setAttribute('href', 'mailto:' + addr);
+        a.setAttribute('title', '发邮件给我：' + addr);
+        a.removeAttribute('data-action');
+      } else {
+        a.setAttribute('title', '联系邮箱（未配置地址）');
+      }
+    });
+  }
+  function copyDialogValue(btn) {
+    var text = btn.getAttribute('data-copy-value') || '';
+    if (!text) { return; }
+    var old = btn.textContent;
+    var done = function () {
+      btn.textContent = '已复制';
+      setTimeout(function () { btn.textContent = old; }, 1800);
+    };
+    function fallbackCopy() {
+      var input = $('[data-role="dialog-value"]');
+      if (!input) { btn.textContent = text; return; }
+      input.focus();
+      input.select();
+      try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = text; }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  /* 侧栏只保留模板里原生的卡片，不再由脚本注入额外栏目；
+     订阅地址复制统一走 copyDialogValue。 */
+
+  /* 外链统一 noopener / no-referrer，避免第三方页面反向拉取资源。 */
+  function hardenExternalLinks() {
+    $$('a[href^="http"]').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (location.protocol === 'file:' || href.indexOf(location.origin) === 0) { return; }
+      if (a.getAttribute('target') === '_blank') { return; }
+      a.setAttribute('rel', 'noopener noreferrer');
+      a.setAttribute('referrerpolicy', 'no-referrer');
+    });
+  }
+
+  function parseFeed(data) {
+    var feed = data && data.feed ? data.feed : {};
+    var entries = (feed.entry || []).map(function (p) {
+      var link = '';
+      (p.link || []).forEach(function (l) {
+        if (l.rel === 'alternate' && l.type === 'text/html') { link = l.href; }
+      });
+      if (!link && (p.link || []).length) { link = p.link[0].href; }
+      return {
+        title: (p.title && p.title.$t) || '',
+        link: link,
+        published: (p.published && p.published.$t) || (p.updated && p.updated.$t) || '',
+        thumb: (p.media$thumbnail && p.media$thumbnail.url) || ''
+      };
+    });
+    window.SOLITUDE_FEED_TOTAL = parseInt(
+      (feed.openSearch$totalResults && feed.openSearch$totalResults.$t) || '0', 10) || entries.length;
+    return entries;
+  }
+
+  function useFeed(data) {
+    // Feed 仅用于封面、最新文章与站点统计，头像不在此处理。
+    var entries = parseFeed(data);
+    fillCovers(entries);
+    fillNewest(entries);
+    fillSideCards(entries);
+  }
+
+  function initFeed() {
+    // Preview mode: static demo data, no network request.
+    if (window.SOLITUDE_DEMO && window.SOLITUDE_DEMO.feed) {
+      useFeed(window.SOLITUDE_DEMO.feed);
+      return;
+    }
+    var base = siteRoot();
+    if (!base || base.indexOf('http') !== 0) { fillCovers([]); return; }
+    var url = base + 'feeds/posts/summary?alt=json&max-results=' + CFG.feedMax;
+    // 国内网络下 Feed 可能长时间无响应：加超时，超时立即回退，不拖慢页面观感。
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, CFG.feedTimeout) : null;
+    var opts = controller ? { signal: controller.signal } : {};
+    fetch(url, opts).then(function (r) {
+      if (!r.ok) { throw new Error('feed ' + r.status); }
+      return r.json();
+    }).then(function (data) {
+      if (timer) { clearTimeout(timer); }
+      useFeed(data);
+    }).catch(function () {
+      if (timer) { clearTimeout(timer); }
+      // 网络 / Feed 失败：保留渐变封面占位，不留下 Loading 状态。
+      fillCovers([]);
+      $$('[data-stat="runtime"]').forEach(function (n) { n.textContent = runtimeDays(); });
+    });
+  }
+
+  /* -----------------------------------------------------------
+     7. Boot
+     ----------------------------------------------------------- */
+  function boot() {
+    updateThemeIcon();
+    applyConfig();
+    initNav();
+    initActions();
+    initOverlays();
+    initToc();
+    highlightTags();
+    renderFooter();
+    fillCategoryBar();
+    initMailLink();
+    hardenExternalLinks();
+    fillEmptyState();
+    initFeed();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+//]]></script>
+</body>
+</html>
