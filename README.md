@@ -4,7 +4,7 @@
 
 > 说明：这不是把 Hexo 主题文件改个后缀就能用的"搬运"。Hexo 是构建期静态生成，Blogger 是服务端 XML 模板 + 小工具（widget）体系，两者数据模型不同。本项目重写了模板结构、样式与交互脚本，保留原主题的配色变量、卡片布局、明暗双主题、首页顶部、侧栏卡片、悬浮工具栏等视觉特征，并用 Blogger 原生能力重新实现数据部分。
 >
-> 演示站：[https://blog.320826.xyz/](https://blog.320826.xyz/)
+> 演示站：[https://www.320826.xyz/](https://www.320826.xyz/)
 
 <p align="center">
   <img src="screenshots/preview-home.png" alt="Solitude for Blogger 首页预览" width="100%">
